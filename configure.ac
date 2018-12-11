@@ -30,7 +30,7 @@ then
 fi
 
 
-AC_CHECK_LIB(gmpxx, __gmpz_init,, [AC_MSG_ERROR([GNU MP not found, download at http://swox.com/gmp])])
+AC_CHECK_HEADER([gmpxx.h],, [AC_MSG_ERROR([GNU MP not found, download at http://swox.com/gmp])])
 AC_CHECK_LIB(asound, snd_pcm_writei,, [AC_MSG_ERROR(ALSA needed! Download at http://www.alsa-prject.org)])
 AC_CHECK_LIB(jack, jack_client_new, [JACK=yes], [JACK=no])
 AC_CHECK_LIB(speex, speex_encode,, [AC_MSG_ERROR(Speex needed! Download at http://www.speex.org)])
@@ -43,7 +43,7 @@ jack_default="no"
 AC_ARG_ENABLE(jack, [  --disable-jack   Disable JACK sound driver (if available)],, disable_jack=$jack_default)
 
 if test "$disable_jack" = "no"; then
-	AC_DEFINE([HAVE_LIBJACK], [], [])
+	AC_DEFINE([HAVE_LIBJACK], [], ["Use JACK"])
 	LIBS="$LIBS -ljack"
 	AC_MSG_RESULT(yes)
 else
