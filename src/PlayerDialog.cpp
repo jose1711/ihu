@@ -22,27 +22,15 @@
 
 #include "PlayerDialog.hpp"
 
+#include <QtGui>
+#include <Qt3Support>
+
 #include "Config.h"
 #include "Error.h"
 
-#include <qvariant.h>
-#include <qlayout.h>
-#include <qframe.h>
-#include <qwidget.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qinputdialog.h>
-#include <qfiledialog.h>
-#include <qmessagebox.h>
-#include <qslider.h>
-#include <qstring.h>
-#include <qstatusbar.h>
-#include <qtimer.h>
-#include <qprogressbar.h>
-
 #define STAT_TIME 1000
 
-PlayerDialog::PlayerDialog( QWidget* parent, const char* name, bool modal, WFlags fl )
+PlayerDialog::PlayerDialog( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
     : QDialog( parent, name, modal, fl )
 {
 	setName( "PlayerDialog" );
@@ -50,17 +38,17 @@ PlayerDialog::PlayerDialog( QWidget* parent, const char* name, bool modal, WFlag
 
 	setMaximumSize(600, 150);
 
-	QBoxLayout *playerLayout = new QVBoxLayout( this, 0, 0);
+	Q3BoxLayout *playerLayout = new Q3VBoxLayout( this, 0, 0);
 
-	playerFrame = new QFrame( this, "playerFrame" );
+	playerFrame = new Q3Frame( this, "playerFrame" );
 
-	QBoxLayout *playLayout = new QVBoxLayout( playerFrame, 5, 5 );
+	Q3BoxLayout *playLayout = new Q3VBoxLayout( playerFrame, 5, 5 );
 
 	playLayout->addStretch();
 
 	slider = new QSlider( playerFrame, "slider" );
 	slider->setTracking(FALSE);
-	slider->setOrientation( QSlider::Horizontal );
+	slider->setOrientation( Qt::Horizontal );
 	slider->setMinValue(0);
 	slider->setMaxValue(100);
 	slider->setEnabled(FALSE);
@@ -76,7 +64,7 @@ PlayerDialog::PlayerDialog( QWidget* parent, const char* name, bool modal, WFlag
 	stopButton = new QPushButton( playerFrame, "stopButton" );
 	stopButton->setEnabled(FALSE);
 
-	QBoxLayout *h2Layout = new QHBoxLayout( playLayout );
+	Q3BoxLayout *h2Layout = new Q3HBoxLayout( playLayout );
 	h2Layout->addWidget(openButton);
 	h2Layout->addWidget(pauseButton);
 	h2Layout->addWidget(stopButton);
@@ -92,8 +80,8 @@ PlayerDialog::PlayerDialog( QWidget* parent, const char* name, bool modal, WFlag
 	QWidget *progressWidget = new QWidget( this, "progressWidget");
 	progressWidget->setMaximumHeight(16);
 	progressWidget->setMaximumWidth(80);
-	QBoxLayout *pLayout = new QHBoxLayout(progressWidget);
-	progressBar = new QProgressBar( progressWidget, "progressBar" );
+	Q3BoxLayout *pLayout = new Q3HBoxLayout(progressWidget);
+	progressBar = new Q3ProgressBar( progressWidget, "progressBar" );
 	progressBar->setMaximumHeight(16);
 	progressBar->setMaximumWidth(80);
 	progressBar->reset();
@@ -107,7 +95,6 @@ PlayerDialog::PlayerDialog( QWidget* parent, const char* name, bool modal, WFlag
 	statTimer = new QTimer(this);
 
 	languageChange();
-	clearWState( WState_Polished );
 
 	// signals and slots connections
 	connect( openButton, SIGNAL( clicked() ), this, SLOT( playFile() ) );
@@ -146,20 +133,20 @@ void PlayerDialog::languageChange()
 {
 	setCaption( tr( "IHU File Player" ) );
 	openButton->setText( tr( "&Open File..." ) );
-	openButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "open.png" ) ) );
+	openButton->setIconSet( QIcon( qPixmapFromMimeSource( "open.png" ) ) );
 	openButton->setAccel( QString("Ctrl+O") );
 	convertButton->setText( tr( "&Convert to .spx" ) );
-	convertButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "save.png" ) ) );
+	convertButton->setIconSet( QIcon( qPixmapFromMimeSource( "save.png" ) ) );
 	pauseButton->setText( tr( "&Pause" ) );
-	pauseButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "pause.png" ) ) );
+	pauseButton->setIconSet( QIcon( qPixmapFromMimeSource( "pause.png" ) ) );
 	stopButton->setText( tr( "&Stop" ) );
-	stopButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "stop.png" ) ) );
+	stopButton->setIconSet( QIcon( qPixmapFromMimeSource( "stop.png" ) ) );
 	statusbar->message("Please open a file to play/convert");
 }
 
 void PlayerDialog::playFile()
 {
-	QString fName = QFileDialog::getOpenFileName("", "*"IHU_EXT, this, 0, "Open IHU file to play...");
+	QString fName = Q3FileDialog::getOpenFileName("", "*"IHU_EXT, this, 0, "Open IHU file to play...");
 	if (!fName.isEmpty())
         {
 		playFile(fName);
@@ -194,7 +181,7 @@ void PlayerDialog::convertFile()
 	fileplayer->end();
 	try
 	{
-	        fileName=QFileDialog::getOpenFileName("", "*"IHU_EXT, this, 0, "Open IHU file to convert...");
+	        fileName=Q3FileDialog::getOpenFileName("", "*"IHU_EXT, this, 0, "Open IHU file to convert...");
 	        if (!fileName.isEmpty())
 	        {
 			fileplayer->convertFile(fileName);

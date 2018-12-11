@@ -25,6 +25,9 @@
 #include "Receiver.hpp"
 #include "PacketHandler.h"
 
+#include <QtNetwork>
+#include <Qt3Support>
+
 #include <stdio.h>
 #include <fcntl.h>
 #include <string.h>
@@ -32,11 +35,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-
-#include <qobject.h>
-#include <qstring.h>
-#include <qtimer.h>
-#include <qsocketnotifier.h>
 
 #define MAXBUFSIZE 65536
 #define IN_BUFSIZE 16384

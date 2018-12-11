@@ -27,11 +27,9 @@
 #include "config.h"
 #endif
 
+#include <Qt3Support>
 #include <stdio.h>
 #include <stdlib.h>
-#include <qobject.h>
-#include <qstring.h>
-#include <qtimer.h>
 
 #include <speex/speex.h>
 

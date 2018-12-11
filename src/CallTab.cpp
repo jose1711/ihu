@@ -23,38 +23,28 @@
 #include "CallTab.hpp"
 #include "Config.h"
 
-#include <qvariant.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
-#include <qlabel.h>
-#include <qcombobox.h>
-#include <qstring.h>
-#include <qtooltip.h>
-#include <qlistbox.h>
-#include <qlineedit.h>
-#include <qstatusbar.h>
-#include <qstring.h>
+#include <QtGui>
+#include <Qt3Support>
 
 #define STAT_TIME 1000
 
-CallTab::CallTab( int id, QString hosts[], int maxhost, QWidget* parent, const char* name, WFlags fl )
+CallTab::CallTab( int id, QString hosts[], int maxhost, QWidget* parent, const char* name, Qt::WFlags fl )
     : QWidget( parent, name, fl )
 {
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 
 	callName = QString(name);
 
-	QBoxLayout *mainLayout = new QVBoxLayout( this, 0, 10);
+	Q3BoxLayout *mainLayout = new Q3VBoxLayout( this, 0, 10);
 
-	mainFrame = new QFrame( this, "ledFrame" );
+	mainFrame = new Q3Frame( this, "ledFrame" );
 	mainLayout->addWidget(mainFrame);
 	
-	QBoxLayout *mLayout = new QVBoxLayout( mainFrame, 0, 10);
+	Q3BoxLayout *mLayout = new Q3VBoxLayout( mainFrame, 0, 10);
 
 	mLayout->addSpacing(10);
 
-	QBoxLayout *mhLayout = new QHBoxLayout(mLayout);
+	Q3BoxLayout *mhLayout = new Q3HBoxLayout(mLayout);
 	
 	hostname = new QLabel( mainFrame, "hostname" );
 	QFont hostname_font(  hostname->font() );
@@ -68,13 +58,13 @@ CallTab::CallTab( int id, QString hosts[], int maxhost, QWidget* parent, const c
 	
 	mLayout->addStretch();
 	
-	QBoxLayout *mhLayout0 = new QHBoxLayout(mLayout);
+	Q3BoxLayout *mhLayout0 = new Q3HBoxLayout(mLayout);
 
-	hostEdit = new QComboBox( TRUE, mainFrame, "hostEdit" );
+	hostEdit = new Q3ComboBox( TRUE, mainFrame, "hostEdit" );
 	hostEdit->setMinimumSize( QSize(100, 30) );
 	hostEdit->setAutoCompletion(TRUE);
 	hostEdit->setDuplicatesEnabled(FALSE);
-	hostEdit->setInsertionPolicy(QComboBox::NoInsertion);
+	hostEdit->setInsertionPolicy(Q3ComboBox::NoInsert);
 	hostEdit->clear();
 
 	mhLayout0->addSpacing(5);
@@ -83,48 +73,48 @@ CallTab::CallTab( int id, QString hosts[], int maxhost, QWidget* parent, const c
 	
 	mLayout->addStretch();
 	
-	QBoxLayout *mhLayout1 = new QHBoxLayout(mLayout, 25);
+	Q3BoxLayout *mhLayout1 = new Q3HBoxLayout(mLayout, 25);
 	
 	mhLayout1->addSpacing(5);
 
 	callButton = new QPushButton( mainFrame, "callButton" );
 	callButton->setMinimumSize( QSize(130, 35) );
-	callButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "call.png" ) ) );
+	callButton->setIconSet( QIcon( qPixmapFromMimeSource( "call.png" ) ) );
 	mhLayout1->addWidget(callButton, 2);
 	
 	ringButton = new QToolButton( mainFrame, "ringButton" );
 	ringButton->setFixedSize( QSize(40, 35) );
 	ringButton->setToggleButton(TRUE);
-	ringButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "bell.png" ) ) );
+	ringButton->setIconSet( QIcon( qPixmapFromMimeSource( "bell.png" ) ) );
 	ringButton->setEnabled(FALSE);
 	mhLayout1->addWidget(ringButton, 1);
 	
 	stopButton = new QPushButton( mainFrame, "stopButton" );
 	stopButton->setMinimumSize( QSize(130, 35) );
 	stopButton->setEnabled( FALSE );
-	stopButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "hangup.png" ) ) );
+	stopButton->setIconSet( QIcon( qPixmapFromMimeSource( "hangup.png" ) ) );
 	mhLayout1->addWidget(stopButton, 2);
 	
 	mhLayout1->addSpacing(5);
 
 	mLayout->addStretch();
 	
-	QBoxLayout *mhLayout2 = new QHBoxLayout(mLayout);
+	Q3BoxLayout *mhLayout2 = new Q3HBoxLayout(mLayout);
 	
 	mhLayout2->addSpacing(30);
 	
 	muteMicButton = new QToolButton( mainFrame, "muteMicButton" );
 	muteMicButton->setMinimumSize( QSize(30, 30) );
 	muteMicButton->setToggleButton(TRUE);
-	muteMicButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "mic.png" ) ) );
+	muteMicButton->setIconSet( QIcon( qPixmapFromMimeSource( "mic.png" ) ) );
 	mhLayout2->addWidget(muteMicButton);
 
 	mhLayout2->addStretch();
 
-	ledFrame = new QFrame( mainFrame, "ledFrame" );
-	ledFrame->setFrameStyle( QFrame::Panel | QFrame::Sunken );
+	ledFrame = new Q3Frame( mainFrame, "ledFrame" );
+	ledFrame->setFrameStyle( Q3Frame::Panel | Q3Frame::Sunken );
 
-	QBoxLayout *ledLayout = new QHBoxLayout(ledFrame, 3, 10);
+	Q3BoxLayout *ledLayout = new Q3HBoxLayout(ledFrame, 3, 10);
 
 	ledLayout->addSpacing(10);
 
@@ -133,7 +123,7 @@ CallTab::CallTab( int id, QString hosts[], int maxhost, QWidget* parent, const c
 	ledLayout->addWidget(tx);
 	
 	txPixmap = new QLabel( ledFrame, "txPixmap" );
-	txPixmap->setPixmap( QPixmap::fromMimeSource( "red.png" ) );
+	txPixmap->setPixmap( qPixmapFromMimeSource( "red.png" ) );
 	txPixmap->setEnabled(FALSE);
 	ledLayout->addWidget(txPixmap);
 	
@@ -141,7 +131,7 @@ CallTab::CallTab( int id, QString hosts[], int maxhost, QWidget* parent, const c
 	ledLayout->addStretch();
 
 	lockPixmap = new QLabel( ledFrame, "lockPixmap" );
-	lockPixmap->setPixmap( QPixmap::fromMimeSource( "lock.png" ) );
+	lockPixmap->setPixmap( qPixmapFromMimeSource( "lock.png" ) );
 	lockPixmap->setEnabled( FALSE );
 	ledLayout->addWidget(lockPixmap);
 
@@ -149,7 +139,7 @@ CallTab::CallTab( int id, QString hosts[], int maxhost, QWidget* parent, const c
 	ledLayout->addSpacing(5);
 
 	rxPixmap = new QLabel( ledFrame, "rxPixmap" );
-	rxPixmap->setPixmap( QPixmap::fromMimeSource( "green.png" ) );
+	rxPixmap->setPixmap( qPixmapFromMimeSource( "green.png" ) );
 	rxPixmap->setEnabled(FALSE);
 	ledLayout->addWidget(rxPixmap);
 
@@ -166,7 +156,7 @@ CallTab::CallTab( int id, QString hosts[], int maxhost, QWidget* parent, const c
 	muteSpkButton = new QToolButton( mainFrame, "muteSpkButton" );
 	muteSpkButton->setMinimumSize( QSize(30, 30) );
 	muteSpkButton->setToggleButton(TRUE);
-	muteSpkButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "speaker.png" ) ) );
+	muteSpkButton->setIconSet( QIcon( qPixmapFromMimeSource( "speaker.png" ) ) );
 	mhLayout2->addWidget(muteSpkButton);
 
 	mhLayout2->addSpacing(30);
@@ -175,7 +165,7 @@ CallTab::CallTab( int id, QString hosts[], int maxhost, QWidget* parent, const c
 	statusbar->setSizeGripEnabled(FALSE);
 
 	QWidget *trafficWidget = new QWidget( this, "trafficWidget");
-	QBoxLayout *tLayout = new QHBoxLayout(trafficWidget);
+	Q3BoxLayout *tLayout = new Q3HBoxLayout(trafficWidget);
 	trafficLabel = new QLabel( trafficWidget, "trafficLabel" );
 	trafficLabel->setEnabled(FALSE);
 	tLayout->addWidget(trafficLabel);
@@ -370,12 +360,12 @@ void CallTab::muteMicButtonClicked()
 	if (on)
 	{
 		message("Audio input disabled.");
-		muteMicButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "mic_mute.png" ) ) );
+		muteMicButton->setIconSet( QIcon( qPixmapFromMimeSource( "mic_mute.png" ) ) );
 	}
 	else 
 	{
 		message("Audio input enabled.");
-		muteMicButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "mic.png" ) ) );
+		muteMicButton->setIconSet( QIcon( qPixmapFromMimeSource( "mic.png" ) ) );
 	}
 	emit muteMicSignal(callId, on);
 }
@@ -386,12 +376,12 @@ void CallTab::muteSpkButtonClicked()
 	if (on)
 	{
 		message("Audio output disabled.");
-		muteSpkButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "speaker_mute.png" ) ) );
+		muteSpkButton->setIconSet( QIcon( qPixmapFromMimeSource( "speaker_mute.png" ) ) );
 	}
 	else 
 	{
 		message("Audio output enabled.");
-		muteSpkButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "speaker.png" ) ) );
+		muteSpkButton->setIconSet( QIcon( qPixmapFromMimeSource( "speaker.png" ) ) );
 	}
 	emit muteSpkSignal(callId, on);
 }

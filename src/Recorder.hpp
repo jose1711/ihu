@@ -27,8 +27,7 @@
 #include "config.h"
 #endif
 
-#include <qobject.h>
-#include <qtimer.h>
+#include <Qt3Support>
 #include <alsa/asoundlib.h>
 
 #ifdef HAVE_LIBJACK

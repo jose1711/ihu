@@ -20,9 +20,8 @@
 #ifndef __trayicon_h
 #define __trayicon_h
 
-#include <qlabel.h>
-#include <qpixmap.h>
-
+#include <QtGui>
+#include <Qt3Support>
 
 //----------------------------------------------------------------------------
 // TrayIcon -- Custom system tray widget.

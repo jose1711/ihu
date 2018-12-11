@@ -27,18 +27,17 @@
 #include "config.h"
 #endif
 
+#include <QtNetwork>
+#include <Qt3Support>
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <qobject.h>
-#include <qtimer.h>
-#include <qstring.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
-#include <qsocketnotifier.h>
 
 #include <speex/speex.h>
 

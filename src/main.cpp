@@ -25,7 +25,7 @@
 #include <string.h>
 #include <signal.h>
 
-#include <qapplication.h>
+#include <Qt3Support>
 
 #include "Config.h"
 #include "Error.h"

@@ -20,10 +20,7 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111, USA.
  */
 
-#include <qimage.h>
-#include <qdict.h>
-#include <qmime.h>
-#include <qdragobject.h>
+#include <Qt3Support>
 
 // images/configure.png
 static const unsigned char image_1_data[] = {
@@ -888,35 +885,35 @@ static QImage uic_findImage( const QString& name )
     return QImage();
 }
 
-class MimeSourceFactory_ihu : public QMimeSourceFactory
+class MimeSourceFactory_ihu : public Q3MimeSourceFactory
 {
 public:
     MimeSourceFactory_ihu() {}
     ~MimeSourceFactory_ihu() {}
     const QMimeSource* data( const QString& abs_name ) const {
-	const QMimeSource* d = QMimeSourceFactory::data( abs_name );
+	const QMimeSource* d = Q3MimeSourceFactory::data( abs_name );
 	if ( d || abs_name.isNull() ) return d;
 	QImage img = uic_findImage( abs_name );
 	if ( !img.isNull() )
-	    ((QMimeSourceFactory*)this)->setImage( abs_name, img );
-	return QMimeSourceFactory::data( abs_name );
+	    ((Q3MimeSourceFactory*)this)->setImage( abs_name, img );
+	return Q3MimeSourceFactory::data( abs_name );
     };
 };
 
-static QMimeSourceFactory* factory = 0;
+static Q3MimeSourceFactory* factory = 0;
 
 void qInitImages_ihu()
 {
     if ( !factory ) {
 	factory = new MimeSourceFactory_ihu;
-	QMimeSourceFactory::defaultFactory()->addFactory( factory );
+	Q3MimeSourceFactory::defaultFactory()->addFactory( factory );
     }
 }
 
 void qCleanupImages_ihu()
 {
     if ( factory ) {
-	QMimeSourceFactory::defaultFactory()->removeFactory( factory );
+	Q3MimeSourceFactory::defaultFactory()->removeFactory( factory );
 	delete factory;
 	factory = 0;
     }

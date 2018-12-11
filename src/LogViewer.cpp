@@ -20,28 +20,21 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111, USA.
  */
 
+#include <QtGui>
+#include <Qt3Support>
+
 #include "LogViewer.hpp"
 #include <errno.h>
 
-#include <qvariant.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qtextedit.h>
-#include <qfile.h>
-#include <qtextstream.h>
-#include <qfiledialog.h>
-#include <qmessagebox.h>
-
-LogViewer::LogViewer( QWidget* parent, const char* name, bool modal, WFlags fl )
+LogViewer::LogViewer( QWidget* parent, const char* name, bool modal, Qt::WindowFlags fl )
     : QDialog( parent, name, modal, fl )
 {
 	setName( "LogViewer" );
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 	
- 	QBoxLayout *logLayout = new QVBoxLayout( this, 5, 5); 
+ 	Q3BoxLayout *logLayout = new Q3VBoxLayout( this, 5, 5); 
 	
-	textLog = new QTextEdit(this);
+	textLog = new Q3TextEdit(this);
 	textLog->setMinimumSize( QSize( 200, 80) );
 	textLog->setTextFormat(Qt::LogText);
 	QFont text_font(  textLog->font() );
@@ -55,14 +48,13 @@ LogViewer::LogViewer( QWidget* parent, const char* name, bool modal, WFlags fl )
 	
 	logLayout->addWidget( textLog, 2 );
 	
-	QBoxLayout *hLayout = new QHBoxLayout( logLayout ); 
+	Q3BoxLayout *hLayout = new Q3HBoxLayout( logLayout ); 
 	hLayout->addWidget(clearButton);
 	hLayout->addWidget(saveButton);
 	hLayout->addWidget(closeButton);
 	
 	languageChange();
 	resize( QSize(700, 300).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
 	
 	// signals and slots connections
 	connect( clearButton, SIGNAL( clicked() ), this, SLOT( clearLog() ) );
@@ -87,7 +79,7 @@ void LogViewer::languageChange()
 	setCaption( tr( "IHU Log Viewer" ) );
 	clearButton->setText( tr( "Clear" ) );
 	saveButton->setText( tr( "Save" ) );
-	saveButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "save.png" ) ) );
+	saveButton->setIconSet( QIcon( qPixmapFromMimeSource( "save.png" ) ) );
 	closeButton->setText( tr( "Close" ) );
 }
 
@@ -103,7 +95,7 @@ void LogViewer::addLog(QString text)
 
 void LogViewer::saveLog()
 {
-	QString name = QFileDialog::getSaveFileName("", "*.*", this, 0, "Save to file...");
+	QString name = Q3FileDialog::getSaveFileName("", "*.*", this, 0, "Save to file...");
 	if (!name.isEmpty())
 	{
 		FILE *logfile = fopen(name.ascii(), "a");
@@ -113,7 +105,7 @@ void LogViewer::saveLog()
 		}
 		else
 		{
-			QTextStream(logfile, IO_WriteOnly) << textLog->text();
+			Q3TextStream(logfile, QIODevice::WriteOnly) << textLog->text();
 			fclose(logfile);
 		}
 	}

@@ -20,11 +20,12 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111, USA.
  */
 
+#include <Qt3Support>
+
 #include "Error.h"
 #include "Logger.h"
 #include <string.h>
 #include <errno.h>
-#include <qdatetime.h>
 
 Logger::Logger()
 {

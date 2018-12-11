@@ -27,9 +27,9 @@
 #include "config.h"
 #endif
 
+#include <Qt3Support>
 #include <stdio.h>
 #include <stdlib.h>
-#include <qstring.h>
 
 class Logger
 {

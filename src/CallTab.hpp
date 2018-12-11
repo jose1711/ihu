@@ -23,33 +23,25 @@
 #ifndef CALLTAB_H
 #define CALLTAB_H
 
-#include <qobject.h>
-#include <qvariant.h>
-#include <qwidget.h>
-
-class QFrame;
-class QLabel;
-class QComboBox;
-class QPushButton;
-class QToolButton;
-class QStatusBar;
+#include <QtGui>
+#include <Qt3Support>
 
 class CallTab : public QWidget
 {
 	Q_OBJECT
 
 public:
-	CallTab( int, QString[], int, QWidget* parent = 0, const char* name = 0, WFlags fl = 0 );
+	CallTab( int, QString[], int, QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
 	~CallTab();
 
 	QStatusBar* statusbar;
 
-	QFrame* mainFrame;
-	QFrame* ledFrame;
+	Q3Frame* mainFrame;
+	Q3Frame* ledFrame;
 	QLabel* hostname;
 	QLabel* tx;
 	QLabel* rx;
-	QComboBox* hostEdit;
+	Q3ComboBox* hostEdit;
 	QPushButton* callButton;
 	QPushButton* stopButton;
 	QToolButton* ringButton;

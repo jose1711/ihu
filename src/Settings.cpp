@@ -20,27 +20,7 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111, USA.
  */
 
-#include <qvariant.h>
-#include <qgroupbox.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
-#include <qspinbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
-#include <qimage.h>
-#include <qpixmap.h>
-#include <qiconset.h>
-#include <qcombobox.h>
-#include <qmessagebox.h>
-#include <qfiledialog.h>
-#include <qradiobutton.h>
-#include <qbuttongroup.h>
-#include <qslider.h>
-#include <qinputdialog.h>
+#include <Qt3Support>
 
 #include <alsa/asoundlib.h>
 
@@ -56,14 +36,14 @@
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  TRUE to construct a modal dialog.
  */
-Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool modal, WFlags fl )
-    : QTabDialog( parent, name, modal, fl ), ihuconfig(ihucfg)
+Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool modal, Qt::WindowFlags fl )
+    : Q3TabDialog( parent, name, modal, fl ), ihuconfig(ihucfg)
 
 {
 	setName( "Settings" );
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
-	setMinimumSize(QSize(500, 300));
-	resize( QSize(500, 300).expandedTo(minimumSizeHint()) );
+	setMinimumSize(QSize(600, 425));
+	resize( QSize(600, 425).expandedTo(minimumSizeHint()) );
 	
 	generalWidget = new QWidget( this, "generalWidget");
 	netWidget = new QWidget( this, "netWidget");
@@ -72,20 +52,20 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	optionsWidget = new QWidget( this, "optionsWidget");
 	securityWidget = new QWidget( this, "securityWidget");
 	
-	QBoxLayout *gLayout = new QVBoxLayout( generalWidget, 10 );
+	Q3BoxLayout *gLayout = new Q3VBoxLayout( generalWidget, 10 );
 	
-	generalGroup = new QGroupBox( generalWidget, "generalGroup" );
+	generalGroup = new Q3GroupBox( generalWidget, "generalGroup" );
 	generalGroup->setMargin( 0 );
 	generalGroup->setMidLineWidth( 0 );
 	
 	gLayout->addWidget(generalGroup);
 	
-	QBoxLayout *gtopLayout = new QVBoxLayout( generalGroup, 20 );
+	Q3BoxLayout *gtopLayout = new Q3VBoxLayout( generalGroup, 20 );
 	
-	QBoxLayout *glay1 = new QHBoxLayout( gtopLayout, 10 );
-	QBoxLayout *glay2 = new QHBoxLayout( gtopLayout, 10 );
-	QBoxLayout *glay3 = new QHBoxLayout( gtopLayout, 10 );
-	QBoxLayout *glay4 = new QHBoxLayout( gtopLayout, 10 );
+	Q3BoxLayout *glay1 = new Q3HBoxLayout( gtopLayout, 10 );
+	Q3BoxLayout *glay2 = new Q3HBoxLayout( gtopLayout, 10 );
+	Q3BoxLayout *glay3 = new Q3HBoxLayout( gtopLayout, 10 );
+	Q3BoxLayout *glay4 = new Q3HBoxLayout( gtopLayout, 10 );
 	
 	nameLabel = new QLabel( generalGroup, "nameLabel" );
 	
@@ -140,23 +120,23 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	glay4->addWidget(maxHostLabel);
 	glay4->addWidget(maxHostBox);
 
-	QBoxLayout *nLayout = new QVBoxLayout( netWidget, 20 );
+	Q3BoxLayout *nLayout = new Q3VBoxLayout( netWidget, 20 );
 	
-	netGroup = new QGroupBox( netWidget, "netGroup" );
+	netGroup = new Q3GroupBox( netWidget, "netGroup" );
 	netGroup->setMargin( 0 );
 	netGroup->setMidLineWidth( 0 );
 	
 	nLayout->addWidget(netGroup);
 	
-	netOutGroup = new QButtonGroup( netWidget, "netOutGroup" );
+	netOutGroup = new Q3ButtonGroup( netWidget, "netOutGroup" );
 	netOutGroup->setMargin( 0 );
 	netOutGroup->setMidLineWidth( 0 );
 	netOutGroup->setRadioButtonExclusive(TRUE);
 	
 	nLayout->addWidget(netOutGroup);
 	
-	QBoxLayout *ntopLayout = new QVBoxLayout( netGroup, 20 );
-	QBoxLayout *nlay1 = new QHBoxLayout( ntopLayout, 10 );
+	Q3BoxLayout *ntopLayout = new Q3VBoxLayout( netGroup, 20 );
+	Q3BoxLayout *nlay1 = new Q3HBoxLayout( ntopLayout, 10 );
 	
 	inprotocolLabel = new QLabel( netGroup, "inprotocolLabel" );
 	
@@ -183,8 +163,8 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	nlay1->addWidget(inportBox);
 	nlay1->addStretch(1);
 	
-	QBoxLayout *nouttopLayout = new QVBoxLayout( netOutGroup, 20);
-	QBoxLayout *nlay2 = new QHBoxLayout( nouttopLayout, 10 );
+	Q3BoxLayout *nouttopLayout = new Q3VBoxLayout( netOutGroup, 20);
+	Q3BoxLayout *nlay2 = new Q3HBoxLayout( nouttopLayout, 10 );
 	
 	protocolLabel = new QLabel( netOutGroup, "protocolLabel" );
 	
@@ -211,20 +191,20 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	nlay2->addWidget(outportBox);
 	nlay2->addStretch(1);
 	
-	QBoxLayout *sLayout = new QVBoxLayout( soundWidget, 10 );
+	Q3BoxLayout *sLayout = new Q3VBoxLayout( soundWidget, 10 );
 	
-	soundGroup = new QGroupBox( soundWidget, "soundGroup" );
+	soundGroup = new Q3GroupBox( soundWidget, "soundGroup" );
 	soundGroup->setMargin( 0 );
 	soundGroup->setMidLineWidth( 0 );
 	
 	sLayout->addWidget(soundGroup);
 	
-	QBoxLayout *stopLayout = new QVBoxLayout( soundGroup, 20 );
+	Q3BoxLayout *stopLayout = new Q3VBoxLayout( soundGroup, 20 );
 	
-	QBoxLayout *slay1 = new QHBoxLayout( stopLayout, 10 );
-	QBoxLayout *slay2 = new QHBoxLayout( stopLayout, 10 );
-	QBoxLayout *slay3 = new QHBoxLayout( stopLayout, 10 );
-	QBoxLayout *slay4 = new QHBoxLayout( stopLayout, 10 );
+	Q3BoxLayout *slay1 = new Q3HBoxLayout( stopLayout, 10 );
+	Q3BoxLayout *slay2 = new Q3HBoxLayout( stopLayout, 10 );
+	Q3BoxLayout *slay3 = new Q3HBoxLayout( stopLayout, 10 );
+	Q3BoxLayout *slay4 = new Q3HBoxLayout( stopLayout, 10 );
 	
 	dspLabel = new QLabel( soundGroup, "dspInLabel" );
 	
@@ -323,19 +303,19 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	slay4->addWidget(prepacketsLabel);
 	slay4->addWidget(prepacketsBox);
 	
-	QBoxLayout *eLayout = new QVBoxLayout( encoderWidget, 10 );
+	Q3BoxLayout *eLayout = new Q3VBoxLayout( encoderWidget, 10 );
 	
-	encoderGroup = new QGroupBox( encoderWidget, "soundGroup" );
+	encoderGroup = new Q3GroupBox( encoderWidget, "soundGroup" );
 	encoderGroup->setMargin( 0 );
 	encoderGroup->setMidLineWidth( 0 );
 	
 	eLayout->addWidget(encoderGroup);
 	
-	QBoxLayout *etopLayout = new QVBoxLayout( encoderGroup, 20);
+	Q3BoxLayout *etopLayout = new Q3VBoxLayout( encoderGroup, 20);
 	
-	QBoxLayout *elay1 = new QHBoxLayout( etopLayout, 10 );
-	QBoxLayout *elay2 = new QHBoxLayout( etopLayout, 10 );
-	QBoxLayout *elay3 = new QHBoxLayout( etopLayout, 10 );
+	Q3BoxLayout *elay1 = new Q3HBoxLayout( etopLayout, 10 );
+	Q3BoxLayout *elay2 = new Q3HBoxLayout( etopLayout, 10 );
+	Q3BoxLayout *elay3 = new Q3HBoxLayout( etopLayout, 10 );
 	
 	bitrateLabel = new QLabel( encoderGroup, "bitrateLabel" );
 	
@@ -393,24 +373,24 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	elay3->addStretch();
 	elay3->addWidget(dtxBox);
 	
-	QBoxLayout *oLayout = new QVBoxLayout( optionsWidget, 10 );
+	Q3BoxLayout *oLayout = new Q3VBoxLayout( optionsWidget, 10 );
 	
-	adrGroup = new QGroupBox( optionsWidget, "adrGroup" );
+	adrGroup = new Q3GroupBox( optionsWidget, "adrGroup" );
 	adrGroup->setMargin( 0 );
 	adrGroup->setMidLineWidth( 0 );
 	
 	oLayout->addWidget(adrGroup);
 	
-	agcGroup = new QGroupBox( optionsWidget, "agcGroup" );
+	agcGroup = new Q3GroupBox( optionsWidget, "agcGroup" );
 	agcGroup->setMargin( 0 );
 	agcGroup->setMidLineWidth( 0 );
 	
 	oLayout->addWidget(agcGroup);
 	
-	QBoxLayout *otopLayout = new QVBoxLayout( adrGroup, 20 );
+	Q3BoxLayout *otopLayout = new Q3VBoxLayout( adrGroup, 20 );
 	otopLayout->addSpacing(5);
-	QBoxLayout *olay1 = new QHBoxLayout( otopLayout, 10 );
-	QBoxLayout *olay2 = new QHBoxLayout( otopLayout, 10 );
+	Q3BoxLayout *olay1 = new Q3HBoxLayout( otopLayout, 10 );
+	Q3BoxLayout *olay2 = new Q3HBoxLayout( otopLayout, 10 );
 	
 	adrmindelayLabel = new QLabel( adrGroup, "adrmindelayLabel" );
 	
@@ -441,9 +421,9 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	olay2->addWidget(adrmaxdelayLabel);
 	olay2->addWidget(adrmaxdelayBox);
 	
-	QBoxLayout *ootopLayout = new QVBoxLayout( agcGroup, 20);
+	Q3BoxLayout *ootopLayout = new Q3VBoxLayout( agcGroup, 20);
 	ootopLayout->addSpacing(5);
-	QBoxLayout *agclay1 = new QHBoxLayout( ootopLayout, 10 );
+	Q3BoxLayout *agclay1 = new Q3HBoxLayout( ootopLayout, 10 );
 	
 	agchwBox = new QCheckBox( agcGroup, "agchwBox" );
 	
@@ -482,12 +462,12 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	agclay1->addStretch();
 	agclay1->addWidget(agcswBox);
 
-	QGridLayout *gridLayout = new QGridLayout( ootopLayout, 2, 2, 5);
+	Q3GridLayout *gridLayout = new Q3GridLayout( ootopLayout, 2, 2, 5);
 
 	agcStepLabel = new QLabel( agcGroup, "agcStepLabel" );
 	
 	agcstep = new QSlider( agcGroup, "agcstep" );
-	agcstep->setOrientation( QSlider::Horizontal );
+	agcstep->setOrientation( Qt::Horizontal );
 	agcstep->setRange( 1, 100 );
 	agcstep->setTracking(TRUE);
 	agcstep->setValue( ihuconfig.getAGCStep() );
@@ -495,7 +475,7 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	agcLevelLabel = new QLabel( agcGroup, "agcLevelLabel" );
 	
 	agclevel = new QSlider( agcGroup, "agclevel" );
-	agclevel->setOrientation( QSlider::Horizontal );
+	agclevel->setOrientation( Qt::Horizontal );
 	agclevel->setRange( -96, 0 );
 	agclevel->setTracking(TRUE);
 	agclevel->setValue( ihuconfig.getAGCLevel() );
@@ -505,21 +485,21 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	gridLayout->addWidget(agcStepLabel, 0, 1, Qt::AlignBottom | Qt::AlignHCenter);
 	gridLayout->addWidget(agcstep, 1, 1, Qt::AlignTop);
 	
-	QBoxLayout *kLayout = new QVBoxLayout( securityWidget, 10 );
+	Q3BoxLayout *kLayout = new Q3VBoxLayout( securityWidget, 10 );
 	
-	securityGroup = new QButtonGroup( securityWidget, "securityGroup" );
+	securityGroup = new Q3ButtonGroup( securityWidget, "securityGroup" );
 	securityGroup->setRadioButtonExclusive(TRUE);
 	securityGroup->setMargin( 0 );
 	securityGroup->setMidLineWidth( 0 );
 	
 	kLayout->addWidget(securityGroup);
 	
-	QBoxLayout *ktopLayout = new QVBoxLayout( securityGroup, 20, 10 );
+	Q3BoxLayout *ktopLayout = new Q3VBoxLayout( securityGroup, 20, 10 );
 	
-	QBoxLayout *klay0 = new QHBoxLayout( ktopLayout, 10 );
-	QBoxLayout *klay1 = new QHBoxLayout( ktopLayout, 10 );
-	QBoxLayout *klay2 = new QHBoxLayout( ktopLayout, 10 );
-	QBoxLayout *klay3 = new QHBoxLayout( ktopLayout, 10 );
+	Q3BoxLayout *klay0 = new Q3HBoxLayout( ktopLayout, 10 );
+	Q3BoxLayout *klay1 = new Q3HBoxLayout( ktopLayout, 10 );
+	Q3BoxLayout *klay2 = new Q3HBoxLayout( ktopLayout, 10 );
+	Q3BoxLayout *klay3 = new Q3HBoxLayout( ktopLayout, 10 );
 	
 	cryptBox = new QCheckBox( securityGroup, "cryptBox" );
 	if (ihuconfig.getCrypt())
@@ -544,16 +524,16 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	
 	passButton = new QPushButton( securityGroup, "passButton" );
 
-	QBoxLayout *hklay1 = new QHBoxLayout( klay1 );
-	QBoxLayout *kklay1 = new QHBoxLayout( hklay1 );
+	Q3BoxLayout *hklay1 = new Q3HBoxLayout( klay1 );
+	Q3BoxLayout *kklay1 = new Q3HBoxLayout( hklay1 );
 	kklay1->addWidget(keyLabel);
-	QBoxLayout *hklay2 = new QHBoxLayout( klay1 );
-	QBoxLayout *kklay2 = new QVBoxLayout( hklay2 );
-	QBoxLayout *kkklay1 = new QHBoxLayout( kklay2 );
+	Q3BoxLayout *hklay2 = new Q3HBoxLayout( klay1 );
+	Q3BoxLayout *kklay2 = new Q3VBoxLayout( hklay2 );
+	Q3BoxLayout *kkklay1 = new Q3HBoxLayout( kklay2 );
 		kkklay1->addWidget(randomRadioButton);
 		kkklay1->addWidget(bitsBox);
 	kklay2->addSpacing(10);
-	QBoxLayout *kkklay2 = new QHBoxLayout( kklay2 );
+	Q3BoxLayout *kkklay2 = new Q3HBoxLayout( kklay2 );
 		kkklay2->addWidget(passwordRadioButton);
 		kkklay2->addWidget(passButton);
 	
@@ -570,7 +550,7 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 		logBox->setChecked(TRUE);	
 
 	logNameLabel = new QLabel( securityGroup, "logNameLabel" );
-	logNameLabel->setFrameStyle( QFrame::Panel | QFrame::Sunken );
+	logNameLabel->setFrameStyle( Q3Frame::Panel | Q3Frame::Sunken );
 	logNameLabel->setMinimumWidth(300);
 	logNameLabel->setText(fileName(logFile));
 
@@ -613,7 +593,7 @@ Settings::~Settings()
  */
 void Settings::languageChange()
 {
-	setCaption( tr( "Settings" ) );
+	this->setCaption( tr( "Settings" ) );
 	generalGroup->setTitle( tr( "General settings" ) );
 	netGroup->setTitle( tr( "Receiver settings (for incoming calls)" ) );
 	netOutGroup->setTitle( tr( "Caller settings (for outgoing calls)" ) );
@@ -665,53 +645,53 @@ void Settings::languageChange()
 	passButton->setText( tr( "Save Passphrase"));
 	logBox->setText( tr( "Log file"));
 
-	setOkButton(QString::null);
-	setHelpButton("Save to file...");
-	setApplyButton("OK");
-	setCancelButton();
-	setDefaultButton();
+	this->setOkButton(QString::null);
+	this->setHelpButton("Save to file...");
+	this->setApplyButton("OK");
+	this->setCancelButton();
+	this->setDefaultButton();
 	
-	QWhatsThis::add(nameEdit, tr("Your name, nickname, address, or whatever you want that your partner will see in order to recognize you. This information will be shown only to the person who's talking with you (leave empty to be anonymous)."));
-	QWhatsThis::add(answerBox, tr("When you check this option, IHU will automatically answer the incoming calls, without need to click on Answer button."));
-	QWhatsThis::add(trayBox, tr("Enable/disable the IHU icon in the system tray."));
-	QWhatsThis::add(waitBox, tr("To wait for calls immediately when you launch IHU, without need to click on Wait for calls button."));
-	QWhatsThis::add(hideBox, tr("This will hide the main window and will automatically minimize IHU to system tray at startup."));
-	QWhatsThis::add(maxCallBox, tr("This is the maximum number of calls per session."));
-	QWhatsThis::add(maxHostBox, tr("This is the number of addresses saved from the host history."));
-	QWhatsThis::add(udpBox, tr("Enable/disable receiving calls with UDP protocol."));
-	QWhatsThis::add(tcpBox, tr("Enable/disable receiving calls with TCP protocol."));
-	QWhatsThis::add(inportBox, tr("This port will be used to receive calls on the selected protocols."));
-	QWhatsThis::add(udpRadioButton, tr("UDP is the default protocol. Choose this protocol for standard calls."));
-	QWhatsThis::add(tcpRadioButton, tr("Choose TCP if remote Receiver only supports this protocol, or you prefer reliable connections."));
-	QWhatsThis::add(outportBox, tr("This port is the Receiver port of the remote computer that you want to call. It will be used for your outgoing calls."));
-	QWhatsThis::add(dspBox, tr("Sound driver for capture and playback. ALSA is the default driver."));
-	QWhatsThis::add(interfInBox, tr("Input sound interface (ALSA). I recommend using plughw or hw interface, but if you need to use more capture streams, then choose another interface. If you have more than one soundcard, you can choose the sound card by changing the device number (for example hw:2)."));
-	QWhatsThis::add(interfOutBox, tr("Output sound interface (ALSA). I recommend using plughw or hw interface. If you have more than one soundcard, you can choose the sound card by changing the device number (for example hw:2)."));
-	QWhatsThis::add(modeBox, tr("The input format determines the audio quality and the network usage for your voice. To improve the sound quality of your voice, choose a higher sample rate."));
-	QWhatsThis::add(stoptxBox, tr("When you are using a threshold greater than zero, it's useful to continue the transmission for some seconds, to preserve the stream against small speech pauses."));
-	QWhatsThis::add(ringVolumeBox, tr("Here you can adjust the volume of ring tone for incoming calls."));
-	QWhatsThis::add(prepacketsBox, tr("Number of packets to prebuffer before starting to play. A high number of packets ensure audio continuity, but it could increase the audio delay."));
-	QWhatsThis::add(adrmindelayBox, tr("This is the minimum audio delay on the output sound interface. When ADR is activated, if the delay is smaller than maximum, IHU will try to increase the delay to this value in order to avoid sound crackle."));
-	QWhatsThis::add(adrmaxdelayBox, tr("This is the maximum audio delay on the output sound interface. When ADR is activated, if the delay is greater than minimum, IHU will try to reduce the delay to this value."));
-	QWhatsThis::add(adrstretchBox, tr("This is the time change percentage for ADR. If the current playback delay is smaller/greater than reference values, than IHU will adjust the current audio stream. A higher time stretch means faster adjustment."));
-	QWhatsThis::add(agcstep, tr("This value will influence the rapidity of AGC volume adjustment."));
-	QWhatsThis::add(bitrateBox, tr("Choose the encoding bitrate type for your voice beetween: Constant (CBR), Variable (VBR), Average (ABR)."));
-	QWhatsThis::add(complexityBox, tr("Algorithmic quality. 0 means less CPU computation but lower quality, 10 means highest quality but more computation."));
-	QWhatsThis::add(cbrqualityBox, tr("CBR quality: 0 lowest bitrate, 10 highest bitrate."));
-	QWhatsThis::add(vbrqualityBox, tr("VBR quality: 0 lowest bitrate, 10 highest bitrate."));
-	QWhatsThis::add(abrBox, tr("ABR bitrate (kilobit per second). You can specify your preferred bitrate average value."));
-	QWhatsThis::add(vadBox, tr("When enabled, it detects whether the audio being encoded is speech or silence/background noise. VAD is implicitly activated when encoding is VBR."));
-	QWhatsThis::add(dtxBox, tr("It's an addition to VAD/VBR operation, that allows to stop transmitting completely when background noise is stationary."));
-	QWhatsThis::add(adrGroup, tr("The ADR option is useful to reduce the audio delay that could build up in the player due to network delay."));
-	QWhatsThis::add(agcGroup, tr("The AGC option is useful to automatically regulate or to maintain stationary the volume level of your recorded voice."));
-	QWhatsThis::add(agchwBox, tr("The ALSA Mixer Control method will automatically adjust the specified mixer control to reach the volume level. Disable this if you have problems or if you don't want IHU to change your mixer settings."));
-	QWhatsThis::add(agcswBox, tr("The IHU Internal Control will amplify or soften the recorded samples to reach the volume level, but no mixer level will be touched."));
-	QWhatsThis::add(cryptBox, tr("When you check this option, IHU will automatically encrypt the outgoing stream of the call."));
-	QWhatsThis::add(randomRadioButton, tr("IHU will automatically choose a new random key."));
-	QWhatsThis::add(passwordRadioButton, tr("IHU will ask you a passphrase when you enable encryption or when you change the encryption key."));
-	QWhatsThis::add(bitsBox, tr("Key length (in bits) of random key."));
-	QWhatsThis::add(showkeyBox, tr("This option will show the decryption passphrase of the incoming stream in the Log. Be careful, this might show confidential informations!"));
-	QWhatsThis::add(logBox, tr("Write a copy of the log to file."));
+	Q3WhatsThis::add(nameEdit, tr("Your name, nickname, address, or whatever you want that your partner will see in order to recognize you. This information will be shown only to the person who's talking with you (leave empty to be anonymous)."));
+	Q3WhatsThis::add(answerBox, tr("When you check this option, IHU will automatically answer the incoming calls, without need to click on Answer button."));
+	Q3WhatsThis::add(trayBox, tr("Enable/disable the IHU icon in the system tray."));
+	Q3WhatsThis::add(waitBox, tr("To wait for calls immediately when you launch IHU, without need to click on Wait for calls button."));
+	Q3WhatsThis::add(hideBox, tr("This will hide the main window and will automatically minimize IHU to system tray at startup."));
+	Q3WhatsThis::add(maxCallBox, tr("This is the maximum number of calls per session."));
+	Q3WhatsThis::add(maxHostBox, tr("This is the number of addresses saved from the host history."));
+	Q3WhatsThis::add(udpBox, tr("Enable/disable receiving calls with UDP protocol."));
+	Q3WhatsThis::add(tcpBox, tr("Enable/disable receiving calls with TCP protocol."));
+	Q3WhatsThis::add(inportBox, tr("This port will be used to receive calls on the selected protocols."));
+	Q3WhatsThis::add(udpRadioButton, tr("UDP is the default protocol. Choose this protocol for standard calls."));
+	Q3WhatsThis::add(tcpRadioButton, tr("Choose TCP if remote Receiver only supports this protocol, or you prefer reliable connections."));
+	Q3WhatsThis::add(outportBox, tr("This port is the Receiver port of the remote computer that you want to call. It will be used for your outgoing calls."));
+	Q3WhatsThis::add(dspBox, tr("Sound driver for capture and playback. ALSA is the default driver."));
+	Q3WhatsThis::add(interfInBox, tr("Input sound interface (ALSA). I recommend using plughw or hw interface, but if you need to use more capture streams, then choose another interface. If you have more than one soundcard, you can choose the sound card by changing the device number (for example hw:2)."));
+	Q3WhatsThis::add(interfOutBox, tr("Output sound interface (ALSA). I recommend using plughw or hw interface. If you have more than one soundcard, you can choose the sound card by changing the device number (for example hw:2)."));
+	Q3WhatsThis::add(modeBox, tr("The input format determines the audio quality and the network usage for your voice. To improve the sound quality of your voice, choose a higher sample rate."));
+	Q3WhatsThis::add(stoptxBox, tr("When you are using a threshold greater than zero, it's useful to continue the transmission for some seconds, to preserve the stream against small speech pauses."));
+	Q3WhatsThis::add(ringVolumeBox, tr("Here you can adjust the volume of ring tone for incoming calls."));
+	Q3WhatsThis::add(prepacketsBox, tr("Number of packets to prebuffer before starting to play. A high number of packets ensure audio continuity, but it could increase the audio delay."));
+	Q3WhatsThis::add(adrmindelayBox, tr("This is the minimum audio delay on the output sound interface. When ADR is activated, if the delay is smaller than maximum, IHU will try to increase the delay to this value in order to avoid sound crackle."));
+	Q3WhatsThis::add(adrmaxdelayBox, tr("This is the maximum audio delay on the output sound interface. When ADR is activated, if the delay is greater than minimum, IHU will try to reduce the delay to this value."));
+	Q3WhatsThis::add(adrstretchBox, tr("This is the time change percentage for ADR. If the current playback delay is smaller/greater than reference values, than IHU will adjust the current audio stream. A higher time stretch means faster adjustment."));
+	Q3WhatsThis::add(agcstep, tr("This value will influence the rapidity of AGC volume adjustment."));
+	Q3WhatsThis::add(bitrateBox, tr("Choose the encoding bitrate type for your voice beetween: Constant (CBR), Variable (VBR), Average (ABR)."));
+	Q3WhatsThis::add(complexityBox, tr("Algorithmic quality. 0 means less CPU computation but lower quality, 10 means highest quality but more computation."));
+	Q3WhatsThis::add(cbrqualityBox, tr("CBR quality: 0 lowest bitrate, 10 highest bitrate."));
+	Q3WhatsThis::add(vbrqualityBox, tr("VBR quality: 0 lowest bitrate, 10 highest bitrate."));
+	Q3WhatsThis::add(abrBox, tr("ABR bitrate (kilobit per second). You can specify your preferred bitrate average value."));
+	Q3WhatsThis::add(vadBox, tr("When enabled, it detects whether the audio being encoded is speech or silence/background noise. VAD is implicitly activated when encoding is VBR."));
+	Q3WhatsThis::add(dtxBox, tr("It's an addition to VAD/VBR operation, that allows to stop transmitting completely when background noise is stationary."));
+	Q3WhatsThis::add(adrGroup, tr("The ADR option is useful to reduce the audio delay that could build up in the player due to network delay."));
+	Q3WhatsThis::add(agcGroup, tr("The AGC option is useful to automatically regulate or to maintain stationary the volume level of your recorded voice."));
+	Q3WhatsThis::add(agchwBox, tr("The ALSA Mixer Control method will automatically adjust the specified mixer control to reach the volume level. Disable this if you have problems or if you don't want IHU to change your mixer settings."));
+	Q3WhatsThis::add(agcswBox, tr("The IHU Internal Control will amplify or soften the recorded samples to reach the volume level, but no mixer level will be touched."));
+	Q3WhatsThis::add(cryptBox, tr("When you check this option, IHU will automatically encrypt the outgoing stream of the call."));
+	Q3WhatsThis::add(randomRadioButton, tr("IHU will automatically choose a new random key."));
+	Q3WhatsThis::add(passwordRadioButton, tr("IHU will ask you a passphrase when you enable encryption or when you change the encryption key."));
+	Q3WhatsThis::add(bitsBox, tr("Key length (in bits) of random key."));
+	Q3WhatsThis::add(showkeyBox, tr("This option will show the decryption passphrase of the incoming stream in the Log. Be careful, this might show confidential informations!"));
+	Q3WhatsThis::add(logBox, tr("Write a copy of the log to file."));
 }
 
 void Settings::saveAndClose()
@@ -881,7 +861,7 @@ void Settings::logEnable()
 {
 	if (logBox->isOn())
 	{
-		QString name=QFileDialog::getSaveFileName(ihuconfig.getLogFile(),"*.*", this, 0, "Save to file...");
+		QString name=Q3FileDialog::getSaveFileName(ihuconfig.getLogFile(),"*.*", this, 0, "Save to file...");
 		if (!name.isEmpty())
 			logFile = name;
 		else
@@ -950,7 +930,7 @@ void Settings::saveToFile()
 {
 	if(saveSettings())
 	{
-		QString name = QFileDialog::getSaveFileName(ihuconfig.getFileName(),"*.xml", this, 0, "Save config to file...");
+		QString name = Q3FileDialog::getSaveFileName(ihuconfig.getFileName(),"*.xml", this, 0, "Save config to file...");
 		if (!name.isEmpty())
 		{
 			try
@@ -968,7 +948,7 @@ void Settings::saveToFile()
 void Settings::passButtonClicked()
 {
 	bool ok;
-	QString text = QInputDialog::getText(QString("Encryption passphrase"), QString("IMPORTANT: THE PASSPHRASE IS SAVED AS CLEARTEXT IN THE CONFIG FILE!\nIf you don't want to save the passphrase, you can always use the main window to set it when needed.\nEnter the encryption passphrase (max 56 chars, please use at least 30 chars, leave blank to reset):"), QLineEdit::Password, ihuconfig.getPasswd(), &ok, this );
+	QString text = QInputDialog::getText(this, QString("Encryption passphrase"), QString("IMPORTANT: THE PASSPHRASE IS SAVED AS CLEARTEXT IN THE CONFIG FILE!\nIf you don't want to save the passphrase, you can always use the main window to set it when needed.\nEnter the encryption passphrase (max 56 chars, please use at least 30 chars, leave blank to reset):"), QLineEdit::Password, ihuconfig.getPasswd(), &ok);
 	if (ok)
 	{
 		ihuconfig.setPasswd(text);

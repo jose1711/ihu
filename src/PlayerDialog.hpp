@@ -23,28 +23,19 @@
 #ifndef PLAYERDIALOG_H
 #define PLAYERDIALOG_H
 
+#include <QtGui>
+#include <Qt3Support>
+
 #include "FilePlayer.hpp"
-
-#include <qvariant.h>
-#include <qdialog.h>
-#include <qstring.h>
-
-class QFrame;
-class QPushButton;
-class QLabel;
-class QSlider;
-class QStatusBar;
-class QProgressBar;
-class QTimer;
 
 class PlayerDialog : public QDialog
 {
 	Q_OBJECT
 
 public:
-	PlayerDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+	PlayerDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
 	~PlayerDialog();
-	QFrame *playerFrame;
+	Q3Frame *playerFrame;
 	QPushButton* openButton;
 	QPushButton* convertButton;
 	QPushButton* pauseButton;
@@ -52,7 +43,7 @@ public:
 	QSlider* slider;
 	QStatusBar* statusbar;
 	QTimer *statTimer;
-	QProgressBar* progressBar;
+	Q3ProgressBar* progressBar;
 
 	FilePlayer* fileplayer;
 

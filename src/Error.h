@@ -27,7 +27,7 @@
 #include "config.h"
 #endif
 
-#include <qstring.h>
+#include <Qt3Support>
 
 class Error {
 public:

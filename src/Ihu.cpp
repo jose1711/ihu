@@ -22,28 +22,8 @@
 
 #include <stdlib.h>
 
-#include <qvariant.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qslider.h>
-#include <qtoolbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qfiledialog.h>
-#include <qwhatsthis.h>
-#include <qaction.h>
-#include <qmenubar.h>
-#include <qpopupmenu.h>
-#include <qtoolbar.h>
-#include <qimage.h>
-#include <qpixmap.h>
-#include <qmessagebox.h>
-#include <qstatusbar.h>
-#include <qinputdialog.h>
-#include <qcombobox.h>
-#include <qlistbox.h>
-#include <qtabwidget.h>
-#include <qprogressbar.h>
+#include <QtGui>
+#include <Qt3Support>
 
 #include "Error.h"
 #include "Ihu.hpp"
@@ -64,40 +44,40 @@
  *  name 'name' and widget flags set to 'f'.
  *
  */
-Ihu::Ihu( Config& ihucfg, QWidget* parent, const char* name, WFlags fl )
-    : QMainWindow( parent, name, fl ), ihuconfig(ihucfg)
+Ihu::Ihu( Config& ihucfg, QWidget* parent, const char* name, Qt::WFlags fl )
+    : Q3MainWindow( parent, name, fl ), ihuconfig(ihucfg)
 {
 	setName( "IHU" );
-	setIcon( QPixmap::fromMimeSource( "ihu.png" ) );
+	setIcon( qPixmapFromMimeSource( "ihu.png" ) );
 	setCentralWidget( new QWidget( this, "qt_central_widget" ) );
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 	setMinimumSize(QSize(300, 400));
 	resize( QSize(300, 400).expandedTo(minimumSizeHint()) );
 	
-	QBoxLayout *ihuLayout = new QVBoxLayout( centralWidget(), 15, 15 );
+	Q3BoxLayout *ihuLayout = new Q3VBoxLayout( centralWidget(), 15, 15 );
 	
-	callFrame = new QFrame( centralWidget(), "callFrame" );
-	callFrame->setFrameStyle( QFrame::Panel | QFrame::Raised );
+	callFrame = new Q3Frame( centralWidget(), "callFrame" );
+	callFrame->setFrameStyle( Q3Frame::Panel | Q3Frame::Raised );
 	ihuLayout->addWidget(callFrame);
 	
-	QBoxLayout *mLayout = new QVBoxLayout( callFrame, 0, 0);
+	Q3BoxLayout *mLayout = new Q3VBoxLayout( callFrame, 0, 0);
 	
 	callWidget = new QTabWidget(callFrame, "callTabWidget");
 	mLayout->addWidget(callWidget);
 
 	ihuLayout->addStretch();
 
-	waitFrame = new QFrame( centralWidget(), "waitFrame" );
+	waitFrame = new Q3Frame( centralWidget(), "waitFrame" );
 	ihuLayout->addWidget(waitFrame);
 
-	QBoxLayout *whLayout = new QHBoxLayout(waitFrame, 0, 0);
+	Q3BoxLayout *whLayout = new Q3HBoxLayout(waitFrame, 0, 0);
 
 	whLayout->addSpacing(30);
 
 	muteMicButton = new QToolButton( waitFrame, "muteMicButton" );
 	muteMicButton->setMinimumSize( QSize(40, 40) );
 	muteMicButton->setToggleButton(TRUE);
-	muteMicButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "mic.png" ) ) );
+	muteMicButton->setIconSet( QIcon( qPixmapFromMimeSource( "mic.png" ) ) );
 	whLayout->addWidget(muteMicButton);
 
 	whLayout->addStretch();
@@ -105,7 +85,7 @@ Ihu::Ihu( Config& ihucfg, QWidget* parent, const char* name, WFlags fl )
 	waitButton = new QPushButton( waitFrame, "waitButton" );
 	waitButton->setMinimumSize( QSize(160, 40) );
 	waitButton->setToggleButton(TRUE);
-	waitButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "phone_no.png" ) ) );
+	waitButton->setIconSet( QIcon( qPixmapFromMimeSource( "phone_no.png" ) ) );
 	whLayout->addWidget(waitButton);
 
 	whLayout->addStretch();
@@ -113,32 +93,32 @@ Ihu::Ihu( Config& ihucfg, QWidget* parent, const char* name, WFlags fl )
 	muteSpkButton = new QToolButton( waitFrame, "muteSpkButton" );
 	muteSpkButton->setMinimumSize( QSize(40, 40) );
 	muteSpkButton->setToggleButton(TRUE);
-	muteSpkButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "speaker.png" ) ) );
+	muteSpkButton->setIconSet( QIcon( qPixmapFromMimeSource( "speaker.png" ) ) );
 	whLayout->addWidget(muteSpkButton);
 	
 	whLayout->addSpacing(30);
 
 	ihuLayout->addStretch();
 
-	otherFrame = new QFrame( centralWidget(), "otherFrame" );
-	otherFrame->setFrameStyle( QFrame::Box | QFrame::Sunken );
+	otherFrame = new Q3Frame( centralWidget(), "otherFrame" );
+	otherFrame->setFrameStyle( Q3Frame::Box | Q3Frame::Sunken );
 	ihuLayout->addWidget(otherFrame);
 	
-	QBoxLayout *oLayout = new QVBoxLayout( otherFrame, 15, 15);
+	Q3BoxLayout *oLayout = new Q3VBoxLayout( otherFrame, 15, 15);
 	
-	QGridLayout *gLayout = new QGridLayout( oLayout, 2, 2, 10);
+	Q3GridLayout *gLayout = new Q3GridLayout( oLayout, 2, 2, 10);
 	
 	threshold = new QLabel( otherFrame, "threshold" );
 	
 	thSlider = new QSlider( otherFrame, "thSlider" );
 	thSlider->setTracking(TRUE);
-	thSlider->setOrientation( QSlider::Horizontal );
+	thSlider->setOrientation( Qt::Horizontal );
 	thSlider->setRange(-96, 0);
 	
 	soundLabel = new QLabel( otherFrame, "soundLabel" );
 	soundLabel->setEnabled(FALSE);
 	
-	soundLevel = new QProgressBar( otherFrame, "soundLevel" );
+	soundLevel = new Q3ProgressBar( otherFrame, "soundLevel" );
 	soundLevel->setMaximumHeight(20);
 	soundLevel->setPercentageVisible(FALSE);
 	soundLevel->reset();
@@ -152,14 +132,14 @@ Ihu::Ihu( Config& ihucfg, QWidget* parent, const char* name, WFlags fl )
 	statusbar = statusBar();
 
 	QWidget *delayWidget = new QWidget( this, "delayWidget");
-	QBoxLayout *dLayout = new QHBoxLayout(delayWidget);
+	Q3BoxLayout *dLayout = new Q3HBoxLayout(delayWidget);
 	delayLabel = new QLabel( delayWidget, "delayLabel" );
 	delayLabel->setEnabled(FALSE);
 	dLayout->addWidget(delayLabel);
 	statusbar->addWidget( delayWidget, 0, TRUE);
 
 	QWidget *trafficWidget = new QWidget( this, "trafficWidget");
-	QBoxLayout *tLayout = new QHBoxLayout(trafficWidget);
+	Q3BoxLayout *tLayout = new Q3HBoxLayout(trafficWidget);
 	trafficLabel = new QLabel( trafficWidget, "trafficLabel" );
 	tLayout->addWidget(trafficLabel);
 	statusbar->addWidget( trafficWidget, 0, TRUE);
@@ -172,7 +152,7 @@ Ihu::Ihu( Config& ihucfg, QWidget* parent, const char* name, WFlags fl )
 	helpContentsAction = new QAction( this, "helpContentsAction" );
 	helpAboutAction = new QAction( this, "helpAboutAction" );
 	settingsAction = new QAction( this, "settingsAction" );
-	settingsAction->setIconSet( QIconSet( QPixmap::fromMimeSource( "configure.png" ) ) );
+	settingsAction->setIconSet( QIcon( qPixmapFromMimeSource( "configure.png" ) ) );
 	logAction = new QAction( this, "logAction" );
 	cryptAction = new QAction( this, "cryptAction" );
 	cryptAction->setToggleAction(TRUE);
@@ -193,7 +173,7 @@ Ihu::Ihu( Config& ihucfg, QWidget* parent, const char* name, WFlags fl )
 	// menubar
 	menubar = new QMenuBar( this, "menubar" );
 	
-	fileMenu = new QPopupMenu( this );
+	fileMenu = new QMenu( this );
 	newCallAction->addTo( fileMenu );
 	closeCallAction->addTo( fileMenu );
 	fileMenu->insertSeparator();
@@ -202,7 +182,7 @@ Ihu::Ihu( Config& ihucfg, QWidget* parent, const char* name, WFlags fl )
 	fileMenu->insertSeparator();
 	fileQuitAction->addTo( fileMenu );
 	
-	callMenu = new QPopupMenu( this );
+	callMenu = new QMenu( this );
 	cryptAction->addTo( callMenu );
 	changeKeyAction->addTo( callMenu );
 	setDecKeyAction->addTo( callMenu );
@@ -210,7 +190,7 @@ Ihu::Ihu( Config& ihucfg, QWidget* parent, const char* name, WFlags fl )
 	dumpRXAction->addTo( callMenu );
 	dumpTXAction->addTo( callMenu );
 
-	optionsMenu = new QPopupMenu( this );
+	optionsMenu = new QMenu( this );
 	adrAction->addTo( optionsMenu );
 	agcAction->addTo( optionsMenu );
 	optionsMenu->insertSeparator();
@@ -219,7 +199,7 @@ Ihu::Ihu( Config& ihucfg, QWidget* parent, const char* name, WFlags fl )
 	optionsMenu->insertSeparator();
 	settingsAction->addTo( optionsMenu );
 	
-	helpMenu = new QPopupMenu( this );
+	helpMenu = new QMenu( this );
 	
 	helpContentsAction->addTo( helpMenu );
 	helpMenu->insertSeparator();
@@ -298,7 +278,7 @@ void Ihu::languageChange()
 	helpContentsAction->setStatusTip( tr( "Shows help contents" ) );
 	helpAboutAction->setText( tr( "About" ) );
 	helpAboutAction->setMenuText( tr( "&About" ) );
-	helpAboutAction->setAccel( QString::null );
+	helpAboutAction->setAccel( QKeySequence(QString::null) );
 	helpAboutAction->setStatusTip( tr( "Show info on IHU" ) );
 	filePlayFileAction->setText( tr( "File Player"  ) );
 	filePlayFileAction->setMenuText( tr( "File &Player" ) );
@@ -444,7 +424,7 @@ void Ihu::applySettings()
 		if (trayIcon == NULL)
 		{
 			icon_status = IHU_ICON_NORMAL;
-			trayIcon = new TrayIcon( this, "trayIcon", QPixmap::fromMimeSource( "ihu_tray.png" ), "IHU" );
+			trayIcon = new TrayIcon( this, "trayIcon", qPixmapFromMimeSource( "ihu_tray.png" ), "IHU" );
 			trayIcon->show();
 			connect( trayIcon, SIGNAL( clicked() ), this, SLOT( toggleVisibility() ) );
 			connect( trayIcon, SIGNAL( contextMenuRequested( const QPoint& ) ), this, SLOT( trayMenuRequested( const QPoint& ) ) );
@@ -538,7 +518,7 @@ void Ihu::waitButtonClicked()
 		try
 		{
 			phone->waitCalls(ihuconfig.getInPort(), ihuconfig.getUDP(), ihuconfig.getTCP());
-			waitButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "phone.png" ) ) );
+			waitButton->setIconSet( QIcon( qPixmapFromMimeSource( "phone.png" ) ) );
 			waitButton->setText( tr( "&Waiting for calls" ) );
 			logViewer->addLog(logger->logStartReceiver());
 		}
@@ -550,7 +530,7 @@ void Ihu::waitButtonClicked()
 	else
 	{
 		phone->stopWaiting();
-		waitButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "phone_no.png" ) ) );
+		waitButton->setIconSet( QIcon( qPixmapFromMimeSource( "phone_no.png" ) ) );
 		waitButton->setText( tr( "&Wait for calls" ) );
 		logViewer->addLog(logger->logStopReceiver());
 	}
@@ -583,7 +563,7 @@ void Ihu::newCall(int id)
 		connect( callTab[id], SIGNAL(stopSignal(int)), this, SLOT(stopCall(int)) );
 		connect( callTab[id], SIGNAL(muteMicSignal(int, bool)), this, SLOT(muteMic(int, bool)) );
 		connect( callTab[id], SIGNAL(muteSpkSignal(int, bool)), this, SLOT(muteSpk(int, bool)) );
-		callWidget->addTab((QWidget *)callTab[id], QIconSet( QPixmap::fromMimeSource( "phone.png" ) ), callName);
+		callWidget->addTab((QWidget *)callTab[id], QIcon( qPixmapFromMimeSource( "phone.png" ) ), callName);
 		if (autocrypt)
 			crypt(id, true);
 		message("New call created.");
@@ -630,7 +610,7 @@ void Ihu::call(int id, QString host)
 		{
 			callTab[id]->setRingButton(TRUE);
 			callTab[id]->startCall();
-			callWidget->setTabIconSet(callTab[id], QPixmap::fromMimeSource( "ihu_talk.png" ) );
+			callWidget->setTabIconSet(callTab[id], qPixmapFromMimeSource( "ihu_talk.png" ) );
 		}
 		ihuconfig.addHost(host);
 	}
@@ -659,7 +639,7 @@ void Ihu::receivedCall(int id)
 	if (callTab[id])
 	{
 		callTab[id]->receivedCall(phone->getCallerIp(id));
-		callWidget->setTabIconSet(callTab[id], QPixmap::fromMimeSource( "ihu_alarm.png" ) );
+		callWidget->setTabIconSet(callTab[id], qPixmapFromMimeSource( "ihu_alarm.png" ) );
 		if (autoanswer)
 		{
 			callTab[id]->startCall();
@@ -675,7 +655,7 @@ void Ihu::connectedCall(int id)
 	{
 		callTab[id]->connectedCall();
 		callTab[id]->message(QString("Connected with %1 (%2)").arg(phone->getCallerName(id)).arg(phone->getCallerIp(id)));
-		callWidget->setTabIconSet(callTab[id], QPixmap::fromMimeSource( "ihu_talk.png" ) );
+		callWidget->setTabIconSet(callTab[id], qPixmapFromMimeSource( "ihu_talk.png" ) );
 	}
 	logViewer->addLog(logger->logConnectedCall(phone->getCallerIp(id), phone->getCallerName(id)));
 }
@@ -685,7 +665,7 @@ void Ihu::cancelCall(int id)
 	if (callTab[id])
 	{
 		callTab[id]->stopCall();
-		callWidget->setTabIconSet(callTab[id], QPixmap::fromMimeSource( "phone.png" ) );
+		callWidget->setTabIconSet(callTab[id], qPixmapFromMimeSource( "phone.png" ) );
 	}
 	logViewer->addLog(logger->logStop(phone->getCallerIp(id), phone->getCallRX(id), phone->getCallTX(id)));
 }
@@ -696,7 +676,7 @@ void Ihu::stopCall(int id)
 	if (callTab[id])
 	{
 		callTab[id]->message("Closing communication...");
-		callWidget->setTabIconSet(callTab[id], QPixmap::fromMimeSource( "phone.png" ) );
+		callWidget->setTabIconSet(callTab[id], qPixmapFromMimeSource( "phone.png" ) );
 	}
 }
 
@@ -1025,9 +1005,9 @@ void Ihu::recorderStatus(bool on)
 	try
 	{
 		if (on)
-			muteMicButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "mic_mute.png" ) ) );
+			muteMicButton->setIconSet( QIcon( qPixmapFromMimeSource( "mic_mute.png" ) ) );
 		else
-			muteMicButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "mic.png" ) ) );
+			muteMicButton->setIconSet( QIcon( qPixmapFromMimeSource( "mic.png" ) ) );
 		phone->disableRecorder(on);
 		message(QString("Audio input globally %1.").arg(tempmsg));
 	}
@@ -1043,9 +1023,9 @@ void Ihu::playerStatus(bool on)
 	try
 	{
 		if (on)
-			muteSpkButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "speaker_mute.png" ) ) );
+			muteSpkButton->setIconSet( QIcon( qPixmapFromMimeSource( "speaker_mute.png" ) ) );
 		else 
-			muteSpkButton->setIconSet( QIconSet( QPixmap::fromMimeSource( "speaker.png" ) ) );
+			muteSpkButton->setIconSet( QIcon( qPixmapFromMimeSource( "speaker.png" ) ) );
 		phone->disablePlayer(on);
 		message(QString("Audio output globally %1.").arg(tempmsg));
 	}
@@ -1159,7 +1139,7 @@ void Ihu::toggleVisibility()
 
 void Ihu::trayMenuRequested( const QPoint& pos )
 {
-	QPopupMenu* trayMenu = new QPopupMenu(this);
+	QMenu* trayMenu = new QMenu(this);
 	trayMenu->setCheckable(TRUE);
 	trayMenu->insertItem( isVisible() ? "Hide IHU" : "Show IHU" , this, SLOT( toggleVisibility() ), 0, 0 );
 	trayMenu->insertSeparator();
@@ -1168,10 +1148,10 @@ void Ihu::trayMenuRequested( const QPoint& pos )
 	{
 		if (callTab[i])
 		{
-			QPopupMenu* callMenu = new QPopupMenu(trayMenu);
-			callMenu->insertItem( QIconSet( QPixmap::fromMimeSource( "call.png" ) ), callTab[i]->getCallButtonText(), callTab[i], SLOT( callButtonClicked() ), 0, 1 );
+			QMenu* callMenu = new QMenu(trayMenu);
+			callMenu->insertItem( QIcon( qPixmapFromMimeSource( "call.png" ) ), callTab[i]->getCallButtonText(), callTab[i], SLOT( callButtonClicked() ), 0, 1 );
 			callMenu->setItemEnabled(1, callTab[i]->isCallButtonEnabled());
-			callMenu->insertItem( QIconSet( QPixmap::fromMimeSource( "hangup.png" ) ), callTab[i]->getStopButtonText(), callTab[i], SLOT( stopButtonClicked() ), 0, 2 );
+			callMenu->insertItem( QIcon( qPixmapFromMimeSource( "hangup.png" ) ), callTab[i]->getStopButtonText(), callTab[i], SLOT( stopButtonClicked() ), 0, 2 );
 			callMenu->setItemEnabled(2, callTab[i]->isStopButtonEnabled());
 			trayMenu->insertItem( callWidget->tabIconSet(callTab[i]), callWidget->tabLabel(callTab[i]), callMenu );
 		}
@@ -1198,16 +1178,16 @@ void Ihu::changeTrayIcon(icon_type newicon)
 			switch(icon_status)
 			{
 				case IHU_ICON_NORMAL:
-					trayIcon->setPixmap( QPixmap::fromMimeSource( "ihu_tray.png" ) );
+					trayIcon->setPixmap( qPixmapFromMimeSource( "ihu_tray.png" ) );
 					break;
 				case IHU_ICON_WAIT:
-					trayIcon->setPixmap( QPixmap::fromMimeSource( "ihu_wait.png" ) );
+					trayIcon->setPixmap( qPixmapFromMimeSource( "ihu_wait.png" ) );
 					break;
 				case IHU_ICON_ALARM:
-					trayIcon->setPixmap( QPixmap::fromMimeSource( "ihu_alarm.png" ) );
+					trayIcon->setPixmap( qPixmapFromMimeSource( "ihu_alarm.png" ) );
 					break;
 				case IHU_ICON_TALK:
-					trayIcon->setPixmap( QPixmap::fromMimeSource( "ihu_talk.png" ) );
+					trayIcon->setPixmap( qPixmapFromMimeSource( "ihu_talk.png" ) );
 					break;
 			}
 		}
@@ -1262,7 +1242,7 @@ void Ihu::dumpTXEnable()
 
 QString Ihu::getFileName()
 {
-	QString name=QFileDialog::getSaveFileName("","*"IHU_EXT, this, 0, "Save stream to file...");
+	QString name=Q3FileDialog::getSaveFileName("","*"IHU_EXT, this, 0, "Save stream to file...");
 	if (!name.isEmpty())
 	{
 		if (!name.endsWith(IHU_EXT))

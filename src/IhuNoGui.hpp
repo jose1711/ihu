@@ -27,9 +27,7 @@
 #include "config.h"
 #endif
 
-#include <qobject.h>
-#include <qstring.h>
-#include <qtimer.h>
+#include <Qt3Support>
 
 #include "Error.h"
 #include "Config.h"

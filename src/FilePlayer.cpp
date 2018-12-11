@@ -33,9 +33,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <qobject.h>
-#include <qstring.h>
-#include <qthread.h>
+#include <Qt3Support>
 
 #define MAXBUFSIZE 65536
 #define IN_BUFSIZE 32768

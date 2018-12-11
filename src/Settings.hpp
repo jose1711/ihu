@@ -27,31 +27,17 @@
 #include "config.h"
 #endif
 
-#include <qvariant.h>
-#include <qtabdialog.h>
+#include <QtGui>
+#include <Qt3Support>
 
 #include "Config.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QCheckBox;
-class QLabel;
-class QLineEdit;
-class QPushButton;
-class QSpinBox;
-class QGroupBox;
-class QComboBox;
-class QRadioButton;
-class QButtonGroup;
-class QSlider;
-
-class Settings : public QTabDialog
+class Settings : public Q3TabDialog
 {
 	Q_OBJECT
 
 public:
-	Settings( Config&, QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+	Settings( Config&, QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WindowFlags fl = 0 );
 	~Settings();
 	
 	QWidget* generalWidget;
@@ -60,14 +46,14 @@ public:
 	QWidget* encoderWidget;
 	QWidget* optionsWidget;
 	QWidget* securityWidget;
-	QGroupBox* generalGroup;
-	QGroupBox* netGroup;
-	QButtonGroup* netOutGroup;
-	QGroupBox* soundGroup;
-	QGroupBox* encoderGroup;
-	QGroupBox* adrGroup;
-	QGroupBox* agcGroup;
-	QButtonGroup* securityGroup;
+	Q3GroupBox* generalGroup;
+	Q3GroupBox* netGroup;
+	Q3ButtonGroup* netOutGroup;
+	Q3GroupBox* soundGroup;
+	Q3GroupBox* encoderGroup;
+	Q3GroupBox* adrGroup;
+	Q3GroupBox* agcGroup;
+	Q3ButtonGroup* securityGroup;
 	QLineEdit *nameEdit;
 	QLabel* nameLabel;
 	QCheckBox* answerBox;
@@ -132,7 +118,7 @@ public:
 	QCheckBox* agcswBox;
 	QRadioButton* randomRadioButton;
 	QRadioButton* passwordRadioButton;
-	QButtonGroup* securityButtonGroup;
+	Q3ButtonGroup* securityButtonGroup;
 	QLabel* keyLabel;
 	QSpinBox* bitsBox;
 	QCheckBox* logBox;

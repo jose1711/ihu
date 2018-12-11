@@ -20,13 +20,13 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111, USA.
  */
 
-#include <qstring.h>
-#include <qsocketdevice.h>
+#include <QtNetwork>
+#include <Qt3Support>
 #include "TcpServer.hpp"
 #include "Error.h"
 
 TcpServer::TcpServer( QObject* parent=0, int port = 0) :
-        QServerSocket(port,1,parent)
+        Q3ServerSocket(port,1,parent)
 {
         if ( !ok() )
 		throw Error(tr("Can't listen on TCP port %1 (already in use?)").arg(port));

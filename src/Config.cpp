@@ -23,12 +23,10 @@
 #include "Error.h"
 #include "Config.h"
 
-#include <stdlib.h>
+#include <QtXml>
+#include <Qt3Support>
 
-#include <qdom.h>
-#include <qfile.h>
-#include <qstring.h>
-#include <qtextstream.h>
+#include <stdlib.h>
 
 Config::Config(const char *fname)
 {
@@ -63,7 +61,7 @@ bool Config::readConfig()
 	bool ret = false;
 	QDomDocument doc( "IhuConfigXML" );
 	QFile confFile( fileName );
-	if( confFile.open( IO_ReadOnly ) )
+	if( confFile.open( QIODevice::ReadOnly ) )
 	{
 		if( doc.setContent( &confFile ) )
 		{
@@ -258,9 +256,9 @@ void Config::writeConfig(QString fname)
 	root.appendChild(host);
 
 	QFile confFile( fname );
-	if( confFile.open( IO_WriteOnly ) )
+	if( confFile.open( QIODevice::WriteOnly ) )
 	{
-		QTextStream ts( &confFile );
+		Q3TextStream ts( &confFile );
 		ts << doc.toString();
 		confFile.close();
 	}

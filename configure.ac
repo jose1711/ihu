@@ -22,13 +22,11 @@ AC_LANG_CPLUSPLUS
 AC_PROG_CXX
 AC_PROG_INSTALL
 
-BNV_HAVE_QT
-
-if test "$have_qt" = "no";
-then
-	AC_MSG_ERROR([QT LIBRARIES NOT FOUND. They might be in a non-standard path (then use --with-Qt-dir option), or they need to be installed.])
-fi
-
+PKG_CHECK_MODULES(QT, [QtCore QtGui QtNetwork QtXml Qt3Support], [
+	AC_PATH_PROGS(QT_MOC, [moc-qt4 moc], moc,`eval $PKG_CONFIG --variable=exec_prefix QtCore`/bin)
+	], [
+	  AC_MSG_ERROR([QT 4.x LIBRARIES NOT FOUND.])
+])
 
 AC_CHECK_HEADER([gmpxx.h],, [AC_MSG_ERROR([GNU MP not found, download at http://swox.com/gmp])])
 AC_CHECK_LIB(asound, snd_pcm_writei,, [AC_MSG_ERROR(ALSA needed! Download at http://www.alsa-prject.org)])

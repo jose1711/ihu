@@ -27,10 +27,8 @@
 #include "config.h"
 #endif
 
+#include <Qt3Support>
 #include <stdio.h>
-#include <qobject.h>
-#include <qstring.h>
-#include <qtimer.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>

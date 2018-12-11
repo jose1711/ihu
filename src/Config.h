@@ -27,7 +27,8 @@
 #include "config.h"
 #endif
 
-#include <qstring.h>
+#include <QtGui>
+#include <Qt3Support>
 
 #define IHU_DEFAULT_CONFIG_FILE ".ihu.xml"
 

@@ -19,9 +19,8 @@
 
 #include "trayicon.hpp"
 
-#include <qtooltip.h>
-#include <qbitmap.h>
-#include <qimage.h>
+#include <QX11Info>
+#include <Qt3Support>
 
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
@@ -36,13 +35,14 @@
 
 // Constructor.
 TrayIcon::TrayIcon ( QWidget *pParent, const char *pszName, const QPixmap &pm, const char *pszLabel = NULL)
-    : QLabel(pParent, pszName, WMouseNoMask | WRepaintNoErase | WType_TopLevel | WStyle_Customize | WStyle_NoBorder | WStyle_StaysOnTop)
+    : QLabel(QString(pszName), pParent, Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint)
 {
+    QLabel::setAttribute(Qt::WA_MouseNoMask);
     QLabel::setMinimumSize(22, 22);
     QLabel::setBackgroundMode(Qt::X11ParentRelative);
     QLabel::setBackgroundOrigin(QWidget::WindowOrigin);
 
-    Display *dpy = qt_xdisplay();
+    Display *dpy = QX11Info::display();
     WId trayWin  = winId();
 
     // System Tray Protocol Specification.
@@ -79,7 +79,7 @@ TrayIcon::TrayIcon ( QWidget *pParent, const char *pszName, const QPixmap &pm, c
     trayAtom = XInternAtom(dpy, "KWM_DOCKWINDOW", false);
     XChangeProperty(dpy, trayWin, trayAtom, trayAtom, 32, PropModeReplace, (unsigned char *) &data, 1);
     // For not so older KDE's...
-    WId forWin = pParent ? pParent->topLevelWidget()->winId() : qt_xrootwin();
+    WId forWin = pParent ? pParent->topLevelWidget()->winId() : QApplication::desktop()->winId();
     trayAtom = XInternAtom(dpy, "_KDE_NET_WM_SYSTEM_TRAY_WINDOW_FOR", false);
     XChangeProperty(dpy, trayWin, trayAtom, XA_WINDOW, 32, PropModeReplace, (unsigned char *) &forWin, 1);
 
@@ -103,12 +103,12 @@ void TrayIcon::mousePressEvent ( QMouseEvent *pMouseEvent )
 
     switch (pMouseEvent->button()) {
 
-      case LeftButton:
+      case Qt::LeftButton:
         // Toggle parent widget visibility.
         emit clicked();
         break;
 
-      case RightButton:
+      case Qt::RightButton:
         // Just signal we're on to context menu.
         emit contextMenuRequested(pMouseEvent->globalPos());
         break;

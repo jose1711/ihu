@@ -27,10 +27,9 @@
 #include "config.h"
 #endif
 
+#include <Qt3Support>
 #include <stdio.h>
 #include <stdlib.h>
-#include <qobject.h>
-#include <qstring.h>
 #include <alsa/asoundlib.h>
 
 #include <soundtouch/SoundTouch.h>

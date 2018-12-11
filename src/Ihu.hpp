@@ -27,9 +27,8 @@
 #include "config.h"
 #endif
 
-#include <qvariant.h>
-#include <qmainwindow.h>
-#include <qtimer.h>
+#include <QtGui>
+#include <Qt3Support>
 
 #include "Config.h"
 #include "PlayerDialog.hpp"
@@ -40,54 +39,37 @@
 
 #include "trayicon.hpp"
 
-class QFrame;
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QAction;
-class QActionGroup;
-class QToolBar;
-class QPopupMenu;
-class QLabel;
-class QComboBox;
-class QPushButton;
-class QSlider;
-class QToolButton;
-class QTabWidget;
-class QProgressBar;
-class QStatusBar;
-
 class LogViewer;
 
-class Ihu : public QMainWindow
+class Ihu : public Q3MainWindow
 {
 	Q_OBJECT
 
 public:
-	Ihu( Config&, QWidget* parent = 0, const char* name = 0, WFlags fl = WType_TopLevel );
+	Ihu( Config&, QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = Qt::WType_TopLevel );
 	~Ihu();
 	
 	enum icon_type { IHU_ICON_NORMAL = 0, IHU_ICON_WAIT, IHU_ICON_ALARM, IHU_ICON_TALK };
 
 	QStatusBar* statusbar;
 	QTabWidget *callWidget;
-	QFrame *callFrame;
-	QFrame *waitFrame;
-	QFrame *otherFrame;
+	Q3Frame *callFrame;
+	Q3Frame *waitFrame;
+	Q3Frame *otherFrame;
 	QLabel* threshold;
 	QLabel* trafficLabel;
 	QLabel* soundLabel;
 	QLabel* delayLabel;
 	QPushButton* waitButton;
 	QSlider* thSlider;
-	QProgressBar* soundLevel;
+	Q3ProgressBar* soundLevel;
 	QToolButton* muteSpkButton;
 	QToolButton* muteMicButton;
 	QMenuBar *menubar;
-	QPopupMenu *fileMenu;
-	QPopupMenu *callMenu;
-	QPopupMenu *optionsMenu;
-	QPopupMenu *helpMenu;
+	QMenu *fileMenu;
+	QMenu *callMenu;
+	QMenu *optionsMenu;
+	QMenu *helpMenu;
 	QAction* newCallAction;
 	QAction* closeCallAction;
 	QAction* filePlayFileAction;

@@ -23,24 +23,20 @@
 #ifndef LOGVIEWER_H
 #define LOGVIEWER_H
 
-#include <qvariant.h>
-#include <qdialog.h>
-
-class QPushButton;
-class QLabel;
-class QTextEdit;
+#include <QtGui>
+#include <Qt3Support>
 
 class LogViewer : public QDialog
 {
 	Q_OBJECT
 
 public:
-	LogViewer( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+	LogViewer( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WindowFlags fl = 0 );
 	~LogViewer();
 	QPushButton* clearButton;
 	QPushButton* saveButton;
 	QPushButton* closeButton;
-	QTextEdit* textLog;
+	Q3TextEdit* textLog;
 
 public slots:
 	virtual void addLog(QString);

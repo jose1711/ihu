@@ -22,9 +22,8 @@
 
 #include <stdlib.h>
 
-#include <qstring.h>
-#include <qtimer.h>
- 
+#include <Qt3Support>
+
 #include "Error.h"
 #include "IhuNoGui.hpp"
 
@@ -124,7 +123,7 @@ void IhuNoGui::applySettings()
 	}
 	catch (Error e)
 	{
-		warning(e.getText());
+		qWarning(e.getText());
 	}
 
 	autocrypt = ihuconfig.getCrypt();
@@ -221,7 +220,7 @@ void IhuNoGui::playFile(QString name)
 	{
 		try
 		{
-			warning("Playing " + name + "...");
+			qWarning("Playing " + name + "...");
 			fileplayer->playFile(name);
 		}
 		catch (Error e)
@@ -248,7 +247,7 @@ void IhuNoGui::agcRefresh(bool on)
 	}
 	catch (Error e)
 	{
-		warning(e.getText());
+		qWarning(e.getText());
 	}
 }
 
@@ -271,7 +270,7 @@ void IhuNoGui::cryptOn(int id)
 	{
 		int len = ihuconfig.getKeyLen()/8;
 		phone->enableRandomCrypt(id, len);
-		warning("Encryption enabled.");
+		qWarning("Encryption enabled.");
 	}
 	catch (Error e)
 	{
