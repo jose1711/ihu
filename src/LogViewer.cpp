@@ -32,7 +32,7 @@ LogViewer::LogViewer( QWidget* parent, const char* name, bool modal, Qt::WindowF
 	setName( "LogViewer" );
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 	
- 	Q3BoxLayout *logLayout = new Q3VBoxLayout( this, 5, 5); 
+	Q3BoxLayout *logLayout = new Q3VBoxLayout( this, 5, 5); 
 	
 	textLog = new Q3TextEdit(this);
 	textLog->setMinimumSize( QSize( 200, 80) );
@@ -48,7 +48,7 @@ LogViewer::LogViewer( QWidget* parent, const char* name, bool modal, Qt::WindowF
 	
 	logLayout->addWidget( textLog, 2 );
 	
-	Q3BoxLayout *hLayout = new Q3HBoxLayout( logLayout ); 
+	Q3BoxLayout *hLayout = new Q3HBoxLayout( logLayout );
 	hLayout->addWidget(clearButton);
 	hLayout->addWidget(saveButton);
 	hLayout->addWidget(closeButton);

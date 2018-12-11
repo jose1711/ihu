@@ -650,7 +650,7 @@ void Settings::languageChange()
 	this->setApplyButton("OK");
 	this->setCancelButton();
 	this->setDefaultButton();
-	
+
 	Q3WhatsThis::add(nameEdit, tr("Your name, nickname, address, or whatever you want that your partner will see in order to recognize you. This information will be shown only to the person who's talking with you (leave empty to be anonymous)."));
 	Q3WhatsThis::add(answerBox, tr("When you check this option, IHU will automatically answer the incoming calls, without need to click on Answer button."));
 	Q3WhatsThis::add(trayBox, tr("Enable/disable the IHU icon in the system tray."));
