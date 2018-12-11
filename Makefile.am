@@ -49,7 +49,7 @@ nodist_ihu_SOURCES = \
 SUBDIRS = doc icon
 
 ihu_CXXFLAGS = @QT_CFLAGS@ -Wall
-ihu_LDADD = @QT_LIBS@ @OGG_LIBS@ -lSoundTouch -lgmp -lgmpxx -lX11
+ihu_LDADD = @QT_LIBS@ @OGG_LIBS@ -lSoundTouch -lgmp -lgmpxx
 
 moc_%.cpp: %.hpp
 	$(QT_MOC) $< -o $@

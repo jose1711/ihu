@@ -26,7 +26,7 @@
 //----------------------------------------------------------------------------
 // TrayIcon -- Custom system tray widget.
 
-class TrayIcon : public QLabel
+class TrayIcon : public QSystemTrayIcon
 {
     Q_OBJECT
 
@@ -42,12 +42,7 @@ signals:
     // Clicked signal.
     void clicked();
     // Context menu signal.
-    void contextMenuRequested(const QPoint& pos);
-
-protected:
-
-    // Overriden mouse event method.
-    void mousePressEvent(QMouseEvent *);
+    void contextMenuRequested();
 };
 
 

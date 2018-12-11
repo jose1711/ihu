@@ -100,9 +100,10 @@ public:
 public slots:
 	virtual void initIhu();
 	virtual void closeEvent(QCloseEvent *);
-	virtual void toggleVisibility();
-	virtual void trayMenuRequested( const QPoint& );
+        virtual void toggleVisibility();
+	virtual QMenu *appendTrayMenu();
 	virtual void changeTrayIcon(icon_type);
+	virtual void trayIconActionActivated(const QSystemTrayIcon::ActivationReason &);
 	virtual void quit();
 	virtual void helpContents();
 	virtual void helpAbout();

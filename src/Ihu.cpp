@@ -425,16 +425,17 @@ void Ihu::applySettings()
 		{
 			icon_status = IHU_ICON_NORMAL;
 			trayIcon = new TrayIcon( this, "trayIcon", qPixmapFromMimeSource( "ihu_tray.png" ), "IHU" );
+                        trayIcon->setContextMenu(appendTrayMenu());
 			trayIcon->show();
-			connect( trayIcon, SIGNAL( clicked() ), this, SLOT( toggleVisibility() ) );
-			connect( trayIcon, SIGNAL( contextMenuRequested( const QPoint& ) ), this, SLOT( trayMenuRequested( const QPoint& ) ) );
+			connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+				this, SLOT(trayIconActionActivated(QSystemTrayIcon::ActivationReason)));
 		}
 	}
 	else
 	{
 		if (trayIcon)
 		{
-			trayIcon->close();
+			trayIcon->hide();
 			delete trayIcon;
 			trayIcon = NULL;
 		}
@@ -1108,7 +1109,7 @@ void Ihu::statistics()
 			changeTrayIcon(IHU_ICON_WAIT);
 		else
 			changeTrayIcon(IHU_ICON_NORMAL);
-		QToolTip::add( trayIcon, QString ("IHU: %1 active calls - %2").arg(phone->getCalls()).arg(statTraffic) );
+		trayIcon->setToolTip( QString ("IHU: %1 active calls - %2").arg(phone->getCalls()).arg(statTraffic) );
 	}
 }
 
@@ -1137,12 +1138,10 @@ void Ihu::toggleVisibility()
 		show();
 }
 
-void Ihu::trayMenuRequested( const QPoint& pos )
+QMenu *Ihu::appendTrayMenu()
 {
 	QMenu* trayMenu = new QMenu(this);
 	trayMenu->setCheckable(TRUE);
-	trayMenu->insertItem( isVisible() ? "Hide IHU" : "Show IHU" , this, SLOT( toggleVisibility() ), 0, 0 );
-	trayMenu->insertSeparator();
 
 	for (int i=0; i<maxcalls; i++)
 	{
@@ -1163,8 +1162,7 @@ void Ihu::trayMenuRequested( const QPoint& pos )
 
 	trayMenu->insertSeparator();
 	trayMenu->insertItem( tr("&Quit"), this, SLOT( quit() ) );
-	trayMenu->exec(pos);
-	delete trayMenu;
+	return trayMenu;
 }
 
 void Ihu::changeTrayIcon(icon_type newicon)
@@ -1174,23 +1172,34 @@ void Ihu::changeTrayIcon(icon_type newicon)
 		if (newicon != icon_status)
 		{
 			icon_status = newicon;
-			trayIcon->erase();
 			switch(icon_status)
 			{
 				case IHU_ICON_NORMAL:
-					trayIcon->setPixmap( qPixmapFromMimeSource( "ihu_tray.png" ) );
+					trayIcon->setIcon( QIcon( qPixmapFromMimeSource( "ihu_tray.png" ) ) );
 					break;
 				case IHU_ICON_WAIT:
-					trayIcon->setPixmap( qPixmapFromMimeSource( "ihu_wait.png" ) );
+					trayIcon->setIcon( QIcon( qPixmapFromMimeSource( "ihu_wait.png" ) ) );
 					break;
 				case IHU_ICON_ALARM:
-					trayIcon->setPixmap( qPixmapFromMimeSource( "ihu_alarm.png" ) );
+					trayIcon->setIcon( QIcon( qPixmapFromMimeSource( "ihu_alarm.png" ) ) );
 					break;
 				case IHU_ICON_TALK:
-					trayIcon->setPixmap( qPixmapFromMimeSource( "ihu_talk.png" ) );
+					trayIcon->setIcon( QIcon( qPixmapFromMimeSource( "ihu_talk.png" ) ) );
 					break;
 			}
 		}
+	}
+}
+
+void Ihu::trayIconActionActivated(const QSystemTrayIcon::ActivationReason &reason)
+{
+	switch( reason )
+	{
+		case QSystemTrayIcon::Trigger:
+			toggleVisibility();
+			break;
+		default:
+			;
 	}
 }
 
