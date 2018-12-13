@@ -46,7 +46,7 @@ nodist_ihu_SOURCES = \
 	src/moc_LogViewer.cpp\
 	src/moc_Ihu.cpp
 
-SUBDIRS = doc icon
+SUBDIRS = doc icon locale
 
 ihu_CXXFLAGS = @QT_CFLAGS@ -Wall
 ihu_LDADD = @QT_LIBS@ @OGG_LIBS@ -lSoundTouch -lgmp -lgmpxx

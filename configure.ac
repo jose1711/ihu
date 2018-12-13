@@ -49,7 +49,7 @@ else
 fi
 fi
  
-AC_OUTPUT(Makefile doc/Makefile icon/Makefile)
+AC_OUTPUT(Makefile doc/Makefile icon/Makefile locale/Makefile)
 
 echo -e -n "\nCompiling with Jack sound driver support: "
 if test "$disable_jack" = "no";
