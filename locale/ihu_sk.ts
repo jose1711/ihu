@@ -97,7 +97,7 @@ Then press Enter or click the Call button to start the communication.</source>
     <name>Config</name>
     <message>
         <source>Using default settings...</source>
-        <translation>Používam východzie nastavenia...</translation>
+        <translation type="obsolete">Používam východzie nastavenia...</translation>
     </message>
 </context>
 <context>
@@ -161,7 +161,7 @@ Then press Enter or click the Call button to start the communication.</source>
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation type="unfinished">Uk&amp;ončiť</translation>
+        <translation>Uk&amp;ončiť</translation>
     </message>
     <message>
         <source>Contents</source>
@@ -459,6 +459,18 @@ TX led is off when you are not speaking</source>
     <message>
         <source>Audio Delay Reduction (ADR) %1.</source>
         <translation>Redukcia oneskorenia zvuku (ADR) %1.</translation>
+    </message>
+    <message>
+        <source>Active calls: %1 - Missed: %2</source>
+        <translation>Aktívne hovory: %1 - Zmeškané: %2</translation>
+    </message>
+    <message>
+        <source> (Waiting for calls)</source>
+        <translation> (Čakám na prichadzajúci hovor)</translation>
+    </message>
+    <message>
+        <source>Recording Level: %1 dB</source>
+        <translation>Úroveň nahrávania: %1 dB</translation>
     </message>
 </context>
 <context>
@@ -842,7 +854,7 @@ TX led is off when you are not speaking</source>
     </message>
     <message>
         <source>Enable/disable the IHU icon in the system tray.</source>
-        <translation type="unfinished"></translation>
+        <translation>Povoliť/zakázať ikonu IHU v systémovej lište.</translation>
     </message>
     <message>
         <source>To wait for calls immediately when you launch IHU, without need to click on Wait for calls button.</source>
@@ -995,6 +1007,30 @@ TX led is off when you are not speaking</source>
     <message>
         <source>Write a copy of the log to file.</source>
         <translation>Zapísať kópiu súboru do súboru.</translation>
+    </message>
+    <message>
+        <source>&amp;Encoder</source>
+        <translation>En&amp;kodér</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation>&amp;Možnosti</translation>
+    </message>
+    <message>
+        <source>Volume Level: %1 dB</source>
+        <translation>Úroveň hlasitosti: %1 dB</translation>
+    </message>
+    <message>
+        <source>Volume change speed: %1</source>
+        <translation>Rýchlosť zmeny hlasitosti: %1</translation>
+    </message>
+    <message>
+        <source>Save to file...</source>
+        <translation>Uložiť do súboru...</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
