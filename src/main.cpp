@@ -55,6 +55,11 @@ void terminate(int val)
 	}
 }
 
+QString getLocalesPath() {
+	QDir dir(QCoreApplication::applicationDirPath() + QString("/../share/ihu/locale/"));
+	return dir.absolutePath();
+	}
+
 void usage(int ret)
 {
 	fprintf(stdout, "Welcome to IHU v. %s by Matteo Trotta <%s>\nUSAGE\n\tihu [OPTIONS]\n", PACKAGE_VERSION, PACKAGE_BUGREPORT);
@@ -140,6 +145,18 @@ int main( int argc, char **argv )
 		Config ihuconfig(cfg);
 		
 		QApplication a( argc, argv, enableGui );
+
+		/*
+		Support translations
+		*/
+
+		QTranslator qtTranslator;
+		qtTranslator.load("qt_" + QLocale::system().name(),
+		QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+		a.installTranslator(&qtTranslator);
+		QTranslator ihuTranslator;
+		ihuTranslator.load("ihu_" + QLocale::system().name(), getLocalesPath());
+		a.installTranslator(&ihuTranslator);
 		
 		if (enableGui)
 		{
