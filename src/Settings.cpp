@@ -563,8 +563,8 @@ Settings::Settings( Config& ihucfg, QWidget* parent, const char* name, bool moda
 	addTab(generalWidget, tr("&General"));
 	addTab(netWidget, tr("&Network"));
 	addTab(soundWidget, tr("&Sound"));
-	addTab(encoderWidget, "&Encoder");
-	addTab(optionsWidget, "&Options");
+	addTab(encoderWidget, tr("&Encoder"));
+	addTab(optionsWidget, tr("&Options"));
 	addTab(securityWidget, tr("Se&curity"));
 	
 	connect( this, SIGNAL( applyButtonPressed() ), this, SLOT( saveAndClose() ) );
@@ -625,8 +625,8 @@ void Settings::languageChange()
 	adrmindelayLabel->setText( tr( "Minimum delay (ms)" ) );
 	adrmaxdelayLabel->setText( tr( "Maximum delay (ms)" ) );
 	adrstretchLabel->setText( tr( "Time change percentage (0-50 \%)") );
-	agcLevelLabel->setText( QString( "Volume Level: %1 dB" ).arg(agclevel->value()) );
-	agcStepLabel->setText( QString( "Volume change speed: %1" ).arg(agcstep->value()) );
+	agcLevelLabel->setText( QString( tr("Volume Level: %1 dB" )).arg(agclevel->value()) );
+	agcStepLabel->setText( QString( tr("Volume change speed: %1" )).arg(agcstep->value()) );
 	modeLabel->setText( tr( "Input format" ) );
 	bitrateLabel->setText( tr( "Bitrate mode" ) );
 	complexityLabel->setText( tr( "Complexity" ) );
@@ -646,8 +646,8 @@ void Settings::languageChange()
 	logBox->setText( tr( "Log file"));
 
 	this->setOkButton(QString::null);
-	this->setHelpButton("Save to file...");
-	this->setApplyButton("OK");
+	this->setHelpButton(tr("Save to file..."));
+	this->setApplyButton(tr("OK"));
 	this->setCancelButton();
 	this->setDefaultButton();
 

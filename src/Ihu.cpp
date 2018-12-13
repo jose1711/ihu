@@ -1075,9 +1075,9 @@ void Ihu::statistics()
 	QString statTraffic = QString("%1 KB/s").arg(total, 2, 'f', 1 );
 	trafficLabel->setText(statTraffic);
 
-	tempMsg = QString("Active calls: %1 - Missed: %2").arg(phone->getCalls()).arg(phone->getConnections());
+	tempMsg = QString(tr("Active calls: %1 - Missed: %2")).arg(phone->getCalls()).arg(phone->getConnections());
 	if (phone->isListening())
-		tempMsg += QString(" (Waiting for calls)");
+		tempMsg += QString(tr(" (Waiting for calls)"));
 
 	if (skipStat > 0)
 		skipStat--;
@@ -1085,7 +1085,7 @@ void Ihu::statistics()
 		statusbar->message(tempMsg);
 
 	int peak = phone->getPeak();
-	soundLabel->setText( QString( "Recording Level: %1 dB" ).arg(peak) );
+	soundLabel->setText( QString(tr("Recording Level: %1 dB" )).arg(peak) );
 	if (peak <= -96)
 		peak = 0;
 	else
