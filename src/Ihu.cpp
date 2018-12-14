@@ -554,9 +554,9 @@ void Ihu::newCall(int id)
 {
 	if (id >= 0)
 	{
-		QString callName = "Default";
+		QString callName = tr("Default");
 		if (id > 0)
-			callName = QString("Call%1").arg(id+1);
+			callName = QString(tr("Call%1")).arg(id+1);
 		callTab[id] = new CallTab(id, ihuconfig.getHosts(), ihuconfig.getMaxHosts(), callWidget, callName);
 		connect( callTab[id], SIGNAL(callSignal(int, QString)), this, SLOT(call(int, QString)) );
 		connect( callTab[id], SIGNAL(ringSignal(int, bool)), this, SLOT(ring(int, bool)) );
