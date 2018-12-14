@@ -143,18 +143,18 @@ void Call::close()
 
 	QString text;
 	if (aborted)
-		text = QString("Call aborted (an error occurred)");
+		text = QString(tr("Call aborted (an error occurred)"));
 	else
 	if (receiver->aborted())
-		text = QString("Call aborted by peer (an error occurred)");
+		text = QString(tr("Call aborted by peer (an error occurred)"));
 	else
 	if (receiver->refused())
-		text = QString("%1 refused the call.").arg(receiver->getCallerName());
+		text = QString(tr("%1 refused the call.")).arg(receiver->getCallerName());
 	else
 	if (receiver->getTotal() > 0)
-		text = QString("Communication with %1 closed.").arg(receiver->getCallerName());
+		text = QString(tr("Communication with %1 closed.")).arg(receiver->getCallerName());
 	else
-		text = QString("%1 rejected the call.").arg(receiver->getIp());
+		text = QString(tr("%1 rejected the call.")).arg(receiver->getIp());
 	warning(text);
 	emit cancelCallSignal(id);
 }
@@ -211,7 +211,7 @@ void Call::newConnection(int socketd, int protocol, struct sockaddr_in sa)
 	{
 		sd = socketd;
 		transmitter->newConnection(sd, sa, protocol);
-		emit warning(QString("Incoming connection from %1!").arg(receiver->getIp()));
+		emit warning(QString(tr("Incoming connection from %1!")).arg(receiver->getIp()));
 	}
 	catch (Error e)
 	{
@@ -224,7 +224,7 @@ void Call::connected()
 //	qWarning("Call::connected()");
 	sendRing(false);
 	emit connectedSignal(id);
-	emit warning(QString("Connected with %1 (%2)").arg(getCallerName()).arg(getCallerIp()));
+	emit warning(QString(tr("Connected with %1 (%2)")).arg(getCallerName()).arg(getCallerIp()));
 }
 
 void Call::error()
@@ -276,7 +276,7 @@ void Call::sendKeyRequest()
 	{
 		if (active)
 		{
-			abortCall(QString("stream is crypted but the decryption key is not available."));
+			abortCall(QString(tr("stream is crypted but the decryption key is not available.")));
 		}
 	}
 }
@@ -347,9 +347,9 @@ void Call::ringMessage()
 {
 	QString text;
 	if (receiver->replied())
-		text = QString("Ringing %1 (%2)").arg(transmitter->getIp()).arg(receiver->getCallerName());
+		text = QString(tr("Ringing %1 (%2)")).arg(transmitter->getIp()).arg(receiver->getCallerName());
 	else
-		text = QString("Contacting %1...").arg(transmitter->getIp());
+		text = QString(tr("Contacting %1...")).arg(transmitter->getIp());
 	warning(text);
 }
 
@@ -420,7 +420,7 @@ void Call::putData(float *buf, int len)
 	}
 	else
 	{
-		qWarning(QString("Warning: Call %1 buffer overloaded").arg(id));
+		qWarning(QString(tr("Warning: Call %1 buffer overloaded")).arg(id));
 	}
 }
 
