@@ -2,6 +2,53 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="sk_SK">
 <context>
+    <name>Call</name>
+    <message>
+        <source>Call aborted (an error occurred)</source>
+        <translation>Hovor zrušený (nastala chyba)</translation>
+    </message>
+    <message>
+        <source>Call aborted by peer (an error occurred)</source>
+        <translation>Hovor zrušený druhou stranou (nastala chyba)</translation>
+    </message>
+    <message>
+        <source>%1 refused the call.</source>
+        <translation>%1 odmietol/la hovor.</translation>
+    </message>
+    <message>
+        <source>Communication with %1 closed.</source>
+        <translation>Komunikácia s %1 bola ukončená.</translation>
+    </message>
+    <message>
+        <source>%1 rejected the call.</source>
+        <translation>%1 odmietol/la hovor.</translation>
+    </message>
+    <message>
+        <source>Incoming connection from %1!</source>
+        <translation>Prichádzajúce spojenie od %1!</translation>
+    </message>
+    <message>
+        <source>Connected with %1 (%2)</source>
+        <translation>Spojený/á s %1 (%2)</translation>
+    </message>
+    <message>
+        <source>stream is crypted but the decryption key is not available.</source>
+        <translation>stream je šifrovaný, ale kľúč na dešifrovanie nie je k dispozícii.</translation>
+    </message>
+    <message>
+        <source>Ringing %1 (%2)</source>
+        <translation>Zvoním u %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Contacting %1...</source>
+        <translation>Kontaktujem %1...</translation>
+    </message>
+    <message>
+        <source>Warning: Call %1 buffer overloaded</source>
+        <translation>Varovanie: Buffer hovoru %1 je preplnený</translation>
+    </message>
+</context>
+<context>
     <name>CallTab</name>
     <message>
         <source>RX</source>
@@ -890,7 +937,7 @@ TX led is off when you are not speaking</source>
     </message>
     <message>
         <source>This port will be used to receive calls on the selected protocols.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tento port bude použitý pre príjem hovorov pre zvolené protokoly.</translation>
     </message>
     <message>
         <source>UDP is the default protocol. Choose this protocol for standard calls.</source>
