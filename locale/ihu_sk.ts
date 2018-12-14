@@ -42,7 +42,7 @@
     <message>
         <source>Write the address (IP or DNS hostname) of the computer that you want to call.
 Then press Enter or click the Call button to start the communication.</source>
-        <translation>Zadajte adresu (IP alebo DNS názov) počítača, s ktorým sa chcete spojiť. Potom stlačte Enter alebo kliknite na tlačidlo Hovor a spustí sa komunikácia.</translation>
+        <translation>Zadajte adresu (IP alebo DNS názov) počítača, s ktorým sa chcete spojiť. Potom stlačte Enter alebo kliknite na tlačidlo Volať a prebehne pokus o spojenie.</translation>
     </message>
     <message>
         <source>This led is on when transmitting data</source>
@@ -472,6 +472,14 @@ TX led is off when you are not speaking</source>
         <source>Recording Level: %1 dB</source>
         <translation>Úroveň nahrávania: %1 dB</translation>
     </message>
+    <message>
+        <source>Default</source>
+        <translation>Východzí</translation>
+    </message>
+    <message>
+        <source>Call%1</source>
+        <translation>Hovor %1</translation>
+    </message>
 </context>
 <context>
     <name>IhuNoGui</name>
@@ -622,15 +630,15 @@ TX led is off when you are not speaking</source>
     </message>
     <message>
         <source>narrow (8000 Hz, 16 bit, Mono)</source>
-        <translation>úzke (8000 Hz, 16 bit, Mono)</translation>
+        <translation>úzke pásmo (8000 Hz, 16 bit, Mono)</translation>
     </message>
     <message>
         <source>wide (16000 Hz, 16 bit, Mono)</source>
-        <translation>široké (16000 Hz, 16 bit, Mono)</translation>
+        <translation>široké pásmo (16000 Hz, 16 bit, Mono)</translation>
     </message>
     <message>
         <source>ultra-wide (32000 Hz, 16 bit, Mono)</source>
-        <translation>ultraširoké (32000 Hz, 16 bit, Mono)</translation>
+        <translation>ultraširoképásmo (32000 Hz, 16 bit, Mono)</translation>
     </message>
     <message>
         <source>CBR</source>
@@ -858,19 +866,19 @@ TX led is off when you are not speaking</source>
     </message>
     <message>
         <source>To wait for calls immediately when you launch IHU, without need to click on Wait for calls button.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ak sa chcete hneď po spustení IHU prepnúť do režimu čakania na hovory, bez nutnosti klikania na tlačidlo Čakať na hovor.</translation>
     </message>
     <message>
         <source>This will hide the main window and will automatically minimize IHU to system tray at startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Táto voľba spôsobí, že IHU sa po štarte okamžite minimalizuje do ikony v systémovej lište.</translation>
     </message>
     <message>
         <source>This is the maximum number of calls per session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toto je najvyšší možný počet hovorov pre jedno sedenie.</translation>
     </message>
     <message>
         <source>This is the number of addresses saved from the host history.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toto je počet adries uložených do histórie.</translation>
     </message>
     <message>
         <source>Enable/disable receiving calls with UDP protocol.</source>
@@ -946,7 +954,7 @@ TX led is off when you are not speaking</source>
     </message>
     <message>
         <source>Algorithmic quality. 0 means less CPU computation but lower quality, 10 means highest quality but more computation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Algoritmická kvalita. 0 pre menej náročné operácie na CPU, ale nižsiu kvalitu, 10 znamená vyššiu kvalitu, ale je viac výpočtovo náročná.</translation>
     </message>
     <message>
         <source>CBR quality: 0 lowest bitrate, 10 highest bitrate.</source>
@@ -962,19 +970,19 @@ TX led is off when you are not speaking</source>
     </message>
     <message>
         <source>When enabled, it detects whether the audio being encoded is speech or silence/background noise. VAD is implicitly activated when encoding is VBR.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ak je zapnuté, deteguje, či je enkódovaný zvuk reč alebo ticho/šum na pozadí. VAD je implicitne aktivované pri používaní VBR enkódovania.</translation>
     </message>
     <message>
         <source>It&apos;s an addition to VAD/VBR operation, that allows to stop transmitting completely when background noise is stationary.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toto je doplnok k VAD/VBR operácii, ktorá umožňuje úplne zastaviť vysielanie, keď je zvuk na pozadí stacionárny.</translation>
     </message>
     <message>
         <source>The ADR option is useful to reduce the audio delay that could build up in the player due to network delay.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voľba ADR je užitočná, keď chcete minimalizovať oneskorenie zvuku, ktoré sa môže postupne nahromadiť kvôli sieťovej latencii.</translation>
     </message>
     <message>
         <source>The AGC option is useful to automatically regulate or to maintain stationary the volume level of your recorded voice.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voľba AGC je užitočná na automatickú reguláciu alebo udržanie konštatnej úrovne hlasitosti vášho hlasu.</translation>
     </message>
     <message>
         <source>The ALSA Mixer Control method will automatically adjust the specified mixer control to reach the volume level. Disable this if you have problems or if you don&apos;t want IHU to change your mixer settings.</source>
@@ -1002,7 +1010,7 @@ TX led is off when you are not speaking</source>
     </message>
     <message>
         <source>This option will show the decryption passphrase of the incoming stream in the Log. Be careful, this might show confidential informations!</source>
-        <translation type="unfinished"></translation>
+        <translation>Táto voľba spôsobí uloženie hesla na dešifrovanie do logu. Buďte opatrný, toto môže prezradiť citlivé informácie!</translation>
     </message>
     <message>
         <source>Write a copy of the log to file.</source>
